@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+.env/
+.venv/
+
+# Archivos de configuración de editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs temporales
+*.log
+
+# Archivos de pruebas / mock data opcionales
+# tests/
+# *.test.json
+
+# Archivos de diagramas generados (opcional si no querés versionarlos)
+# docs/*.png
+# assets/*.png
