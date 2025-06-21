@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "id_tool": 1,
+    "date": "2025-06-03",
+    "maintenance_type": "Correctivo",
+    "description": "Cambio de escobillas",
+    "responsible": "Estudiantes de 7mo año",
+    "cost": "$0",
+    "next": "N/A"
+  },
+  {
+    "id": 2,
+    "id_tool": 2,
+    "date": "2025-05-20",
+    "maintenance_type": "Preventivo",
+    "description": "Lubricación de engranajes",
+    "responsible": "Profesor Martínez",
+    "cost": "$1500",
+    "next": "2025-11-20"
+  },
+  {
+    "id": 3,
+    "id_tool": 3,
+    "date": "2025-04-15",
+    "maintenance_type": "Correctivo",
+    "description": "Reemplazo de cable de alimentación",
+    "responsible": "Estudiantes de 6to año",
+    "cost": "$500",
+    "next": "N/A"
+  },
+  {
+    "id": 4,
+    "id_tool": 4,
+    "date": "2025-03-10",
+    "maintenance_type": "Preventivo",
+    "description": "Inspección general y limpieza",
+    "responsible": "Profesor Gómez",
+    "cost": "$0",
+    "next": "2025-09-10"
+  },
+  {
+    "id": 5,
+    "id_tool": 5,
+    "date": "2025-02-28",
+    "maintenance_type": "Correctivo",
+    "description": "Ajuste de tornillos sueltos",
+    "responsible": "Estudiantes de 5to año",
+    "cost": "$0",
+    "next": "N/A"
+  },
+  {
+    "id": 6,
+    "id_tool": 6,
+    "date": "2025-01-22",
+    "maintenance_type": "Preventivo",
+    "description": "Cambio de filtro de aire",
+    "responsible": "Profesor Ramírez",
+    "cost": "$800",
+    "next": "2025-07-22"
+  },
+  {
+    "id": 7,
+    "id_tool": 7,
+    "date": "2025-06-01",
+    "maintenance_type": "Correctivo",
+    "description": "Reparación de interruptor",
+    "responsible": "Estudiantes de 7mo año",
+    "cost": "$200",
+    "next": "N/A"
+  },
+  {
+    "id": 8,
+    "id_tool": 8,
+    "date": "2025-05-10",
+    "maintenance_type": "Preventivo",
+    "description": "Verificación de calibración",
+    "responsible": "Profesor Martínez",
+    "cost": "$0",
+    "next": "2025-11-10"
+  },
+  {
+    "id": 9,
+    "id_tool": 9,
+    "date": "2025-04-05",
+    "maintenance_type": "Correctivo",
+    "description": "Sustitución de broca rota",
+    "responsible": "Estudiantes de 6to año",
+    "cost": "$300",
+    "next": "N/A"
+  },
+  {
+    "id": 10,
+    "id_tool": 10,
+    "date": "2025-03-18",
+    "maintenance_type": "Preventivo",
+    "description": "Limpieza de ventilador",
+    "responsible": "Profesor Gómez",
+    "cost": "$0",
+    "next": "2025-09-18"
+  }
+]
