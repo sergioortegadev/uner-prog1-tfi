@@ -28,3 +28,4 @@ Thumbs.db
 # Archivos de diagramas generados (opcional si no querés versionarlos)
 # docs/*.png
 # assets/*.png
+borrar.py

@@ -8,6 +8,12 @@
 
 Este repositorio contiene el Trabajo Final Integrador para la materia **Programación I** de la carrera de Desarrollo Web en la UNER.
 
+## Organización del equipo
+
+A modo de emular un entorno de trabajo bajo metodologías ágiles se trabajó con este tablero de [Trello](https://trello.com/b/CBI6jmsN/tfi-prog1-uner-tudw), del cual aquí presentamos una muestra:
+
+![tablero trello](./trello.png)
+
 ## 🎯 **Objetivo del proyecto**
 
 Desarrollar una aplicación en Python que permita gestionar:

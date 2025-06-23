@@ -1,0 +1,111 @@
+[
+    {
+        "id": 1,
+        "tool_id": 1,
+        "user_dni": 28456987,
+        "date_loan": "2025-06-10T09:30:00.000000",
+        "date_return": "2025-06-15T10:45:30.123456",
+        "state": "Devuelta ok",
+        "observation": "Sin novedades."
+    },
+    {
+        "id": 2,
+        "tool_id": 5,
+        "user_dni": 34567890,
+        "date_loan": "2025-06-12T14:15:00.000000",
+        "date_return": "2025-06-22T18:41:21.649049",
+        "state": "Devuelto",
+        "observation": ""
+    },
+    {
+        "id": 3,
+        "tool_id": 7,
+        "user_dni": 22334455,
+        "date_loan": "2025-06-11T08:00:00.000000",
+        "date_return": "2025-06-17T12:20:15.654321",
+        "state": "Devuelta ok",
+        "observation": "Herramienta con leve desgaste."
+    },
+    {
+        "id": 4,
+        "tool_id": 2,
+        "user_dni": 11223344,
+        "date_loan": "2025-06-13T10:45:00.000000",
+        "date_return": "2025-06-22T18:42:18.617695",
+        "state": "Devuelto",
+        "observation": ""
+    },
+    {
+        "id": 5,
+        "tool_id": 9,
+        "user_dni": 55667788,
+        "date_loan": "2025-06-14T15:30:00.000000",
+        "date_return": "2025-06-16T09:10:45.987654",
+        "state": "Devuelta ok",
+        "observation": "Sin problemas al devolver."
+    },
+    {
+        "id": 6,
+        "tool_id": 1,
+        "user_dni": 66778899,
+        "date_loan": "2025-06-15T11:00:00.000000",
+        "date_return": "",
+        "state": "Pendiente",
+        "observation": ""
+    },
+    {
+        "id": 7,
+        "tool_id": 4,
+        "user_dni": 77889900,
+        "date_loan": "2025-06-16T09:20:00.000000",
+        "date_return": "2025-06-17T16:45:00.321987",
+        "state": "Devuelta ok",
+        "observation": "Se devolvió con retraso de 1 día."
+    },
+    {
+        "id": 8,
+        "tool_id": 6,
+        "user_dni": 88990011,
+        "date_loan": "2025-06-17T14:10:00.000000",
+        "date_return": "",
+        "state": "Pendiente",
+        "observation": "Solicitó prórroga de devolución."
+    },
+    {
+        "id": 9,
+        "tool_id": 8,
+        "user_dni": 99001122,
+        "date_loan": "2025-06-18T10:00:00.000000",
+        "date_return": "",
+        "state": "Pendiente",
+        "observation": ""
+    },
+    {
+        "id": 10,
+        "tool_id": 10,
+        "user_dni": 10111213,
+        "date_loan": "2025-06-19T13:45:00.000000",
+        "date_return": "",
+        "state": "Pendiente",
+        "observation": "Requiere revisión al devolver."
+    },
+    {
+        "id": 11,
+        "tool_id": 30,
+        "user_dni": 12345678,
+        "date_loan": "2025-06-22T21:23:59.635188",
+        "date_return": "2025-06-22T21:26:57.679015",
+        "state": "Devuelto",
+        "observations": "",
+        "observation": "La trajo Homero Simpson"
+    },
+    {
+        "id": 12,
+        "tool_id": 28,
+        "user_dni": 99667744,
+        "date_loan": "2025-06-22T21:25:46.102469",
+        "date_return": "2025-06-22T21:26:26.027598",
+        "state": "Devuelto",
+        "observations": ""
+    }
+]
