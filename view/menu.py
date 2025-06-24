@@ -37,6 +37,38 @@ def validar_fecha(mensaje="Ingrese fecha (YYYY-MM-DD): "):
         except ValueError:
             print("Fecha inválida. Use el formato YYYY-MM-DD.")
 
+
+def _obtener_datos_usuario():
+    """Solicita y retorna un diccionario con los datos de un usuario."""
+    nombre = input("Nombre: ")
+    apellido = input("Apellido: ")
+    email = input("Email: ")
+    while True:
+        tipo = input("Tipo (Estudiante/Personal): ").lower()
+        if tipo in ["estudiante", "personal"]:
+            break
+        print("Tipo inválido. Debe ser 'Estudiante' o 'Personal'.")
+
+    datos_usuario = {
+        "nombre": nombre,
+        "apellido": apellido,
+        "email": email,
+        "tipo": tipo.capitalize(),
+        "curso": None,
+        "taller": None,
+        "rol": None,
+        "dep": None
+    }
+
+    if tipo == "estudiante":
+        datos_usuario["curso"] = input("Curso (si aplica): ")
+        datos_usuario["taller"] = input("Taller (si aplica): ")
+    elif tipo == "personal":
+        datos_usuario["rol"] = input("Rol (si aplica): ")
+        datos_usuario["dep"] = input("Departamento (si aplica): ")
+    
+    return datos_usuario            
+
 # ======== MENÚ PRINCIPAL ========
 
 def menu():
@@ -89,7 +121,7 @@ def menu_asignaciones():
                 id_tool = validar_id("ID herramienta: ")
                 dni = validar_dni("DNI usuario: ")
                 obs = input("Observaciones: ")
-                imprimir_resultado(asignaciones.loan_return(id_tool, dni, obs))
+                # imprimir_resultado(asignaciones.loan_return(id_tool, dni, obs))
             case "3":
                 dni = validar_dni()
                 imprimir_resultado(asignaciones.loan_get_user(dni))
@@ -118,18 +150,13 @@ def menu_usuarios():
         match opcion:
             case "1":
                 dni = validar_dni()
-                nombre = input("Nombre: ")
-                apellido = input("Apellido: ")
-                email = input("Email: ")
-                tipo = input("Tipo (Estudiante/Personal): ")
-                curso = input("Curso (si aplica): ")
-                taller = input("Taller (si aplica): ")
-                rol = input("Rol (si aplica): ")
-                dep = input("Departamento (si aplica): ")
-                imprimir_resultado(usuarios.user_create(dni, nombre, apellido, email, tipo, curso, taller, rol, dep))
+                datos = _obtener_datos_usuario()
+                imprimir_resultado(usuarios.user_create(dni, **datos))
+             
             case "2":
                 dni = validar_dni()
-                imprimir_resultado(usuarios.user_update(dni))
+                datos = _obtener_datos_usuario()
+                imprimir_resultado(usuarios.user_update(dni, **datos))
             case "3":
                 dni = validar_dni()
                 imprimir_resultado(usuarios.user_delete(dni))
