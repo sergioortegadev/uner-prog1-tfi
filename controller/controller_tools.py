@@ -1,34 +1,39 @@
+from typing import Dict, List, Any, Optional
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from model.model_tools import load_tools, save_json_file
+
+# Accessory functions for tools
+def update_tool(tool_id: int, updates: dict) -> dict:
+ # Aquí se podría agregar la lógica para actualizar la herramienta en una base de datos o sistema
+ # Por ahora, simplemente retornamos un mensaje de éxito
+ print(f"Actualizando herramienta con ID {tool_id} con los siguientes datos: {updates}")
 
 
-def tool_get_by_id(id=None):
- if not id:
+def tool_get_by_id(id_tool: int = None) -> Dict[str, Any]:
+ if not id_tool:
   return {
     'message': 'Error: ID de herramienta no proporcionado. \n Esta función requiere el parámetro ID.',
     'to_print': {}
   }
- if not isinstance(id, int):
+ if not isinstance(id_tool, int):
   return {
    'message': 'Error: El ID de la herramienta debe ser un número entero',
    'to_print': {}
   }
- # Simulación de obtención de herramienta por ID
- # Aquí se podría agregar la lógica para obtener la herramienta de una base de datos o sistema
+ 
+ tools = load_tools()
+ tool = None
+ for t in tools:
+  if t['id'] == id_tool:
+   tool = t
+   break
+
+
  return {
-  'message': 'Datos de la Herramienta ',
-  'to_print': { 
-   "tool_id": 1,
-   "tool_name": "martillo",
-   "tool_type": "algo",
-   "tool_brand": "Truper",
-   "tool_model": "MX123",
-   "tool_state": "nuevo",
-   "tool_location": "S01-E01-R01",
-   "tool_observations": "",
-   "tool_available": True
-  },
+  'message': 'Datos de la Herramienta' if tool else 'Herramienta no encontrada',
+  'to_print': tool if tool else {}
  }
 
 def tool_get_by_name(name=None):
@@ -47,7 +52,7 @@ def tool_get_by_name(name=None):
  return {
   'message': 'Datos de la Herramienta ',
   'to_print': { 
-   "tool_id": 1,
+   "id": 1,
    "tool_name": "martillo",
    "tool_type": "algo",
    "tool_brand": "Truper",
@@ -59,61 +64,14 @@ def tool_get_by_name(name=None):
   },
  }
 
-def tools_list_all(*args, **kwargs):
+def tools_list_all(*args, **kwargs) -> List[Dict[str, Any]]:
  # Estos parámetros, permite que acepte argumentos opcionales y los ignore. Sin ellos se rompe la ejecución si se le pasa un argumento que no espera.
 
- # Simulación de listado de herramientas
- # Aquí se podría agregar la lógica para obtener las herramientas de una base de datos o sistema
- # Por ahora, simplemente retornamos un mensaje de éxito con datos simulados
+ tools = load_tools()
 
  return {
-  'message': 'Listado de Herramientas',
-  'to_print': [
-  { 
-   "tool_id": 1,
-   "tool_name": "martillo",
-   "tool_type": "algo",
-   "tool_brand": "Truper",
-   "tool_model": "MX123",
-   "tool_state": "nuevo",
-   "tool_location": "S01-E01-R01",
-   "tool_observations": "",
-   "tool_available": True
-  },
-  {
-    "tool_id": 2,
-    "tool_name": "Destornillador plano",
-    "tool_type": "algo",
-    "tool_brand": "Stanley",
-    "tool_model": "DX123",
-    "tool_state": "usado",
-    "tool_location": "S01-E01-R02",
-    "tool_observations": "",
-    "tool_available": False
-  },
-  {
-    "tool_id": 3,
-    "tool_name": "Destornillador Phillips",
-    "tool_type": "algo",
-    "tool_brand": "Stanley",
-    "tool_model": "DX124",
-    "tool_state": "usado",
-    "tool_location": "S01-E01-R03",
-    "tool_observations": "",
-    "tool_available": True
-  },
-  { 
-   "tool_id": 4,
-   "tool_name": "Llave inglesa",
-   "tool_type": "algo",
-   "tool_brand": "Bahco",
-   "tool_model": "LX123",
-   "tool_state": "nuevo",
-   "tool_location": "S01-E01-R04",
-   "tool_observations": "",
-   "tool_available": True
-  }
-  ]
+  'message': 'Listado de Herramientas' if len(tools) > 0 else 'No hay herramientas registradas',
+  'to_print': tools if len(tools) > 0 else []
  }
 
 def tools_list_by_type(tool_type=None):
