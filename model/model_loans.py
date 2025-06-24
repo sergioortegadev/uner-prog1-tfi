@@ -1,6 +1,7 @@
 from typing import Dict, List, Any, Optional
 from datetime import datetime
-from model.model_data import load_json_file, save_json_file, get_next_id
+from model.model_data import load_json_file, save_json_file
+from model.new_id import new_id
 # from model.model_users import find_user_by_id
 # from model.model_tools import find_tool_by_id, update_tool
 
@@ -27,7 +28,8 @@ def save_loans(loans: List[Dict[str, Any]]) -> None:
 
 def create_loan(new_loan_data: Dict[str, Any], loans: List[Dict[str, Any]]) -> Dict[str, Any]:
  new_loan = {
-     "id": get_next_id(loans),
+    # "id": get_next_id(loans),
+     "id": new_id(loans),
      "tool_id": new_loan_data["tool_id"],
      "user_dni": new_loan_data["user_dni"],
      "date_loan": datetime.now().isoformat(),

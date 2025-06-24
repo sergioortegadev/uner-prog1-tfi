@@ -33,7 +33,7 @@ def loan_create(tool_id: int = None, user_dni: int = None) -> Dict[str, Any]:
 
  loans = load_loans()
 
- # Validar que existan usuario y herramienta
+ # Validar que exista usuario
  user = user_get_by_dni(user_dni).get('to_print', None)
  if not user:
   return {
@@ -176,14 +176,15 @@ def loan_get_user(user_dni: int = None) -> List[Dict[str, Any]]:
 
 
 # Ejemplos de uso
-# print(loan_create(28, 99667744))
+# print(loan_create(26, 12345678))
 # print(loan_create())
 # print(loan_create('',''))
+# print(loan_return(26))
 # print(loan_return(30, 'Muy desgastada'))
 # print(loan_return(1, 'Roto al devolverlo'))
 # print(loan_return())
 # print(loan_list())
-# print(loan_get_tool(4))
+# print(loan_get_tool(1))
 # print(loan_get_tool(14))
 # print(loan_get_tool())
 # print(loan_get_tool(''))

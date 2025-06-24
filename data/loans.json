@@ -100,12 +100,75 @@
         "observation": "La trajo Homero Simpson"
     },
     {
-        "id": 12,
+        "id": 13,
         "tool_id": 28,
         "user_dni": 99667744,
         "date_loan": "2025-06-22T21:25:46.102469",
         "date_return": "2025-06-22T21:26:26.027598",
         "state": "Devuelto",
+        "observations": ""
+    },
+    {
+        "id": 12,
+        "tool_id": 26,
+        "user_dni": 774441122,
+        "date_loan": "2025-06-23T20:41:27.898688",
+        "date_return": "2025-06-23T20:43:10.722700",
+        "state": "Devuelto",
+        "observations": ""
+    },
+    {
+        "id": 16,
+        "tool_id": 24,
+        "user_dni": 774441122,
+        "date_loan": "2025-06-23T20:42:00.880447",
+        "date_return": "",
+        "state": "Pendiente",
+        "observations": ""
+    },
+    {
+        "id": 14,
+        "tool_id": 26,
+        "user_dni": 774441122,
+        "date_loan": "2025-06-23T20:43:30.910607",
+        "date_return": "2025-06-23T20:43:50.912705",
+        "state": "Devuelto",
+        "observations": ""
+    },
+    {
+        "id": 15,
+        "tool_id": 26,
+        "user_dni": 774441122,
+        "date_loan": "2025-06-23T20:44:09.682203",
+        "date_return": "2025-06-23T20:44:29.510269",
+        "state": "Devuelto",
+        "observations": ""
+    },
+    {
+        "id": 17,
+        "tool_id": 26,
+        "user_dni": 774441122,
+        "date_loan": "2025-06-23T20:44:42.306812",
+        "date_return": "",
+        "state": "Pendiente",
+        "observations": ""
+    },
+    {
+        "id": 18,
+        "tool_id": 26,
+        "user_dni": 12345678,
+        "date_loan": "2025-06-23T21:13:56.369304",
+        "date_return": "",
+        "state": "Pendiente",
+        "observations": ""
+    },
+    {
+        "id": 19,
+        "tool_id": 26,
+        "user_dni": 12345678,
+        "date_loan": "2025-06-23T21:14:17.459427",
+        "date_return": "",
+        "state": "Pendiente",
         "observations": ""
     }
 ]

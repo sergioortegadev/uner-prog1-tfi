@@ -24,8 +24,9 @@ def tool_get_by_id(id_tool: int = None) -> Dict[str, Any]:
   }
  
  tools = load_tools()
+ tool = None
  for t in tools:
-  if t['tool_id'] == id_tool:
+  if t['id'] == id_tool:
    tool = t
    break
 
@@ -51,7 +52,7 @@ def tool_get_by_name(name=None):
  return {
   'message': 'Datos de la Herramienta ',
   'to_print': { 
-   "tool_id": 1,
+   "id": 1,
    "tool_name": "martillo",
    "tool_type": "algo",
    "tool_brand": "Truper",

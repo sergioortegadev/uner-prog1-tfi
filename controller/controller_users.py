@@ -1,7 +1,8 @@
+from typing import Dict, List, Any, Optional
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
+from model.model_users import load_users, save_users
 
 def user_create(dni=None, first_name=None, last_name=None, email=None, user_type=None, curso=None, taller=None, role=None, departament=None):
  if not dni or not first_name or not last_name or not email or not user_type:
@@ -81,7 +82,7 @@ def user_delete(dni=None):
   }
  }
 
-def user_get_by_dni(dni=None):
+def user_get_by_dni(dni: int = None) -> Dict[str, Any]:
  if not dni:
   return {
     'message': 'Error: DNI de usuario no proporcionado. \n Esta función requiere el parámetro DNI.',
@@ -92,18 +93,18 @@ def user_get_by_dni(dni=None):
    'message': 'Error: El DNI del usuario debe ser un número entero',
    'to_print': {}
   }
- # Simulación de obtención de usuario por DNI
- # Aquí se podría agregar la lógica para obtener el usuario de una base de datos o sistema
+
+ users = load_users()
+ user = None
+ for u in users:
+  if u['user_dni'] == dni:
+   user = u
+   break
+
+
  return {
-  'message': 'Datos del Usuario',
-  'to_print': {
-   'Id': 1,
-   'DNI': dni,
-   'Nombre': 'Juan',
-   'Apellido': 'Perez',
-   'Email': 'email@ejemplo.com',
-   'Tipo': 'Personal'
-  }
+  'message': 'Datos del Usuario' if user else 'Usuario no encontrado',
+  'to_print': user if user else {}
  }
 
 def user_get_by_name(first_name=None):
@@ -175,7 +176,7 @@ def users_list_by_type(user_type=None):
 # print(user_create(12345678, 'Juan', 'Perez', 'usuario1@ejemplo.com', 'Estudiante'))
 # print(user_update(12345678))
 # print(user_delete(12345678))
-# print(user_get_by_dni(12345678))
+# print(user_get_by_dni(22232425))
 # print(user_get_by_name('Juan'))
 # print(users_list())
 # print(users_list('pepe'))

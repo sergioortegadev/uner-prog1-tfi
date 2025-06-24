@@ -1,7 +1,7 @@
 from typing import Dict, List, Any, Optional
 #from models.data import get_next_id, load_json_file, save_json_file
 from enum import Enum
-from model.model_data import load_json_file, save_json_file, get_next_id
+from model.model_data import load_json_file, save_json_file
 
 FILE = "tools.json"
 REQUIRED_TOOL_FIELDS = ["nombre", "tipo", "ubicacion"]

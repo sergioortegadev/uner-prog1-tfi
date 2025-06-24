@@ -62,10 +62,10 @@ def save_json_file(file_name: str, data: Any):
         raise IOError(f"Error al guardar el archivo {file_name}: {str(e)}")
 
 
-def get_next_id(items: List[Dict[str, Any]]) -> int:
- if not items:
-     return 1
+# def get_next_id(items: List[Dict[str, Any]]) -> int:
+#  if not items:
+#      return 1
  
- max_id = max(item.get('id', 0) for item in items)
- return max_id + 1 if max_id > 0 else 1
+#  max_id = max(item.get('id', 0) for item in items)
+#  return max_id + 1 if max_id > 0 else 1
 

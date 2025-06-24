@@ -1,9 +1,9 @@
 import re
 from typing import Dict, List, Any, Optional
+# from models.data import load_json_file, save_json_file,  get_next_id
+from model.model_data import load_json_file, save_json_file
 
-from models.data import load_json_file, save_json_file,  get_next_id
-
-USERS_FILE = "usuarios.json"
+FILE = "users.json"
 REQUIRED_USER_FIELDS = ["nombre", "dni", "apellido", "tipo_usuario"]
 
 
@@ -14,7 +14,7 @@ def load_users() -> List[Dict[str, Any]]:
     Returns:
         Lista de diccionarios de usuarios.
     """
-    return load_json_file(USERS_FILE, default_data=[])
+    return load_json_file(FILE, default_data=[])
 
 
 def save_users(users: List[Dict[str, Any]]) -> bool:
@@ -24,7 +24,7 @@ def save_users(users: List[Dict[str, Any]]) -> bool:
     Args:
         users: Lista de diccionarios de usuarios a guardar.
     """
-    return save_json_file(USERS_FILE, users)
+    return save_json_file(FILE, users)
 
 
 def validate_dni(dni: str, users: List[Dict[str, Any]], exclude_id: Optional[int] = None) -> None:
