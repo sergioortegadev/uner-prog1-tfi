@@ -1,9 +1,4 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from model.model_data import load_json_file
 
-json_registro = load_json_file("loans.json", [])
 
 def new_id(lista_registros):
     """

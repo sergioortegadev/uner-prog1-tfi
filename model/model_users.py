@@ -2,6 +2,7 @@ import re
 from typing import Dict, List, Any, Optional
 # from models.data import load_json_file, save_json_file,  get_next_id
 from model.model_data import load_json_file, save_json_file
+from model.new_id import new_id
 
 FILE = "users.json"
 REQUIRED_USER_FIELDS = ["nombre", "dni", "apellido", "tipo_usuario"]
@@ -17,14 +18,14 @@ def load_users() -> List[Dict[str, Any]]:
     return load_json_file(FILE, default_data=[])
 
 
-def save_users(users: List[Dict[str, Any]]) -> bool:
+def save_users(users: List[Dict[str, Any]]):
     """
     Guarda la lista de usuarios en el archivo JSON.
 
     Args:
         users: Lista de diccionarios de usuarios a guardar.
     """
-    return save_json_file(FILE, users)
+    save_json_file(FILE, users)
 
 
 def validate_dni(dni: str, users: List[Dict[str, Any]], exclude_id: Optional[int] = None) -> None:
@@ -69,10 +70,10 @@ def create_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
             raise ValueError(f"El campo {field} es obligatorio")
 
     # Verificar DNI
-    validate_dni(user_data["dni"], users)
+    # validate_dni(user_data["dni"], users)
 
     new_user = {
-        "id": get_next_id(users),
+        "id": new_id(users),
         "nombre": user_data["nombre"],
         "apellido": user_data["apellido"],
         "dni": user_data["dni"],
@@ -89,7 +90,7 @@ def create_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
     return new_user
 
 
-def find_user_by_dni(dni: str) -> Optional[Dict[str, Any]]:
+def find_user_by_dni(dni: int) -> Optional[Dict[str, Any]]:
     """Buscar un usuario por DNI
 
     Args:
@@ -103,6 +104,35 @@ def find_user_by_dni(dni: str) -> Optional[Dict[str, Any]]:
         if user["dni"] == dni:
             return user
     return None
+
+
+def find_user_by_first_name(first_name: str) -> Optional[Dict[str, Any]]:
+    """Buscar un usuario por nombre
+
+    Args:
+        first_name: nombre del usuario a buscar
+
+    Returns:
+        Diccionario del usuario si se encuentra, None en caso contrario
+    """
+    users = load_users()
+    for user in users:
+        if user["nombre"] == first_name:
+            return user
+    return None
+
+
+def find_users_by_user_type(user_type: str) -> List[Dict[str, Any]]:
+    """Buscar usuarios por tipo de usuario
+
+    Args:
+        user_type: Tipo de usuario a buscar
+
+    Returns:
+        Lista de diccionarios de usuarios si se encuentran, lista vacía en caso contrario
+    """
+    users = load_users()
+    return [user for user in users if user["tipo_usuario"].lower() == user_type.lower()]
 
 
 def find_user_by_id(user_id: int) -> Optional[Dict[str, Any]]:
@@ -148,20 +178,18 @@ def update_user(user_id: int, user_data: Dict[str, Any]) -> Optional[Dict[str, A
     Returns:
         Diccionario del usuario actualizado si se encuentra, None en caso contrario
 
-    Raises:
-        InvalidDataError: Si la validación falla
     """
     users = load_users()
 
     # Encontrar índice del usuario
     user_index = find_user_index_by_id(user_id, users)
 
-    if user_index == -1:
-        raise ValueError(f"Usuario con ID {user_id} no encontrado")
+    # if user_index == -1:
+    # raise ValueError(f"Usuario con ID {user_id} no encontrado")
 
     # Validar DNI  si se proporciona
-    if "dni" in user_data:
-        validate_dni(user_data["dni"], users, exclude_id=user_id)
+    # if "dni" in user_data:
+    # validate_dni(user_data["dni"], users, exclude_id=user_id)
 
     # Actualizar usuario
     updated_user = users[user_index].copy()
