@@ -1,4 +1,5 @@
 import sys
+import view.style
 from controller import controller_users as usuarios
 from controller import controller_tools as herramientas
 from controller import controller_loans as asignaciones
@@ -37,18 +38,66 @@ def validar_fecha(mensaje="Ingrese fecha (YYYY-MM-DD): "):
         except ValueError:
             print("Fecha inválida. Use el formato YYYY-MM-DD.")
 
+# ======== FUNCIONES DE IMPRESIÓN ========
+def imprimir_resultado(result):
+    view.style.normal_cyan(f"\n{result['message']}\n")
+
+    to_print = result.get("to_print", {})
+    for each in to_print:
+        if isinstance(each, dict):
+            # print(f"{each.get('id', 'Desconocido')}:")
+            for key, value in each.items():
+                if key != 'id':
+                    print(f"  - {key}: {value}")
+            print("\n")
+        else:
+            print(f"{each.capitalize()}: {to_print[each]}")
+    print("\n")
+
+# ======== FUNCIONES DE INTERACCIÓN CON EL USUARIO ========
+def _obtener_datos_usuario():
+    """Solicita y retorna un diccionario con los datos de un usuario."""
+    nombre = input("Nombre: ")
+    apellido = input("Apellido: ")
+    email = input("Email: ")
+    while True:
+        tipo = input("Tipo (Estudiante/Personal): ").lower()
+        if tipo in ["estudiante", "personal"]:
+            break
+        print("Tipo inválido. Debe ser 'Estudiante' o 'Personal'.")
+
+    datos_usuario = {
+        "nombre": nombre,
+        "apellido": apellido,
+        "email": email,
+        "tipo": tipo.capitalize(),
+        "curso": None,
+        "taller": None,
+        "rol": None,
+        "dep": None
+    }
+
+    if tipo == "estudiante":
+        datos_usuario["curso"] = input("Curso (si aplica): ")
+        datos_usuario["taller"] = input("Taller (si aplica): ")
+    elif tipo == "personal":
+        datos_usuario["rol"] = input("Rol (si aplica): ")
+        datos_usuario["dep"] = input("Departamento (si aplica): ")
+    
+    return datos_usuario            
+
 # ======== MENÚ PRINCIPAL ========
 
 def menu():
     while True:
-        print("\n=== Menú Principal ===")
-        print("1 - Asignaciones")
-        print("2 - Usuarios")
-        print("3 - Herramientas")
-        print("4 - Mantenimiento")
-        print("0 - Salir")
+        view.style.header("\n   === Menú Principal ===")
+        print("   1 - Asignaciones")
+        print("   2 - Usuarios")
+        print("   3 - Herramientas")
+        print("   4 - Mantenimiento")
+        print("   0 - Salir\n")
 
-        opcion = validar_opcion("Seleccione una opción: ", ["1", "2", "3", "4", "0"])
+        opcion = validar_opcion("   Seleccione una opción: ", ["1", "2", "3", "4", "0"])
 
         if opcion == "1":
             menu_asignaciones()
@@ -59,26 +108,25 @@ def menu():
         elif opcion == "4":
             menu_mantenimiento()
         elif opcion == "0":
-            print("Gracias por usar el sistema.")
+            view.style.header("\n\n   Gracias por usar el sistema.")
+            view.style.footer()
             sys.exit(0)
 
 # ======== SUBMENÚS ========
 
-def imprimir_resultado(result):
-    print(f"\n{result['message']}")
-    print(result["to_print"])
+
 
 def menu_asignaciones():
     while True:
-        print("\n--- Menú Asignaciones ---")
-        print("1 - Registrar préstamo")
-        print("2 - Registrar devolución")
-        print("3 - Ver historial por usuario")
-        print("4 - Ver historial por herramienta")
-        print("5 - Ver listado completo")
-        print("0 - Volver")
+        view.style.subheader("\n   --- Menú Asignaciones ---")
+        print("   1 - Registrar préstamo")
+        print("   2 - Registrar devolución")
+        print("   3 - Ver historial por usuario")
+        print("   4 - Ver historial por herramienta")
+        print("   5 - Ver listado completo")
+        print("   0 - Volver")
 
-        opcion = validar_opcion("Seleccione una opción: ", ["1", "2", "3", "4", "5", "0"])
+        opcion = validar_opcion("\n   Seleccione una opción: ", ["1", "2", "3", "4", "5", "0"])
 
         match opcion:
             case "1":
@@ -89,7 +137,7 @@ def menu_asignaciones():
                 id_tool = validar_id("ID herramienta: ")
                 dni = validar_dni("DNI usuario: ")
                 obs = input("Observaciones: ")
-                imprimir_resultado(asignaciones.loan_return(id_tool, dni, obs))
+                # imprimir_resultado(asignaciones.loan_return(id_tool, dni, obs))
             case "3":
                 dni = validar_dni()
                 imprimir_resultado(asignaciones.loan_get_user(dni))
@@ -103,33 +151,28 @@ def menu_asignaciones():
 
 def menu_usuarios():
     while True:
-        print("\n--- Menú Usuarios ---")
-        print("1 - Crear usuario")
-        print("2 - Editar usuario")
-        print("3 - Eliminar usuario")
-        print("4 - Buscar por DNI")
-        print("5 - Buscar por nombre")
-        print("6 - Listar todos")
-        print("7 - Listar por tipo")
-        print("0 - Volver")
+        view.style.subheader("\n   --- Menú Usuarios ---")
+        print("   1 - Crear usuario")
+        print("   2 - Editar usuario")
+        print("   3 - Eliminar usuario")
+        print("   4 - Buscar por DNI")
+        print("   5 - Buscar por nombre")
+        print("   6 - Listar todos")
+        print("   7 - Listar por tipo")
+        print("   0 - Volver")
 
-        opcion = validar_opcion("Seleccione una opción: ", [str(i) for i in range(8)])
+        opcion = validar_opcion("\n   Seleccione una opción: ", [str(i) for i in range(8)])
 
         match opcion:
             case "1":
                 dni = validar_dni()
-                nombre = input("Nombre: ")
-                apellido = input("Apellido: ")
-                email = input("Email: ")
-                tipo = input("Tipo (Estudiante/Personal): ")
-                curso = input("Curso (si aplica): ")
-                taller = input("Taller (si aplica): ")
-                rol = input("Rol (si aplica): ")
-                dep = input("Departamento (si aplica): ")
-                imprimir_resultado(usuarios.user_create(dni, nombre, apellido, email, tipo, curso, taller, rol, dep))
+                datos = _obtener_datos_usuario()
+                imprimir_resultado(usuarios.user_create(dni, **datos))
+             
             case "2":
                 dni = validar_dni()
-                imprimir_resultado(usuarios.user_update(dni))
+                datos = _obtener_datos_usuario()
+                imprimir_resultado(usuarios.user_update(dni, **datos))
             case "3":
                 dni = validar_dni()
                 imprimir_resultado(usuarios.user_delete(dni))
@@ -149,17 +192,17 @@ def menu_usuarios():
 
 def menu_herramientas():
     while True:
-        print("\n--- Menú Herramientas ---")
-        print("1 - Crear herramienta")
-        print("2 - Editar herramienta")
-        print("3 - Eliminar herramienta")
-        print("4 - Buscar por ID")
-        print("5 - Buscar por nombre")
-        print("6 - Listar todas")
-        print("7 - Listar por tipo")
-        print("0 - Volver")
+        view.style.subheader("\n   --- Menú Herramientas ---")
+        print("   1 - Crear herramienta")
+        print("   2 - Editar herramienta")
+        print("   3 - Eliminar herramienta")
+        print("   4 - Buscar por ID")
+        print("   5 - Buscar por nombre")
+        print("   6 - Listar todas")
+        print("   7 - Listar por tipo")
+        print("   0 - Volver")
 
-        opcion = validar_opcion("Seleccione una opción: ", [str(i) for i in range(8)])
+        opcion = validar_opcion("\n   Seleccione una opción: ", [str(i) for i in range(8)])
 
         match opcion:
             case "1":
@@ -194,12 +237,12 @@ def menu_herramientas():
 
 def menu_mantenimiento():
     while True:
-        print("\n--- Menú Mantenimiento ---")
-        print("1 - Registrar mantenimiento")
-        print("2 - Ver historial completo")
-        print("0 - Volver")
+        view.style.subheader("\n   --- Menú Mantenimiento ---")
+        print("   1 - Registrar mantenimiento")
+        print("   2 - Ver historial completo")
+        print("   0 - Volver")
 
-        opcion = validar_opcion("Seleccione una opción: ", ["1", "2", "0"])
+        opcion = validar_opcion("\n   Seleccione una opción: ", ["1", "2", "0"])
 
         match opcion:
             case "1":

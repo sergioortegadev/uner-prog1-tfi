@@ -1,8 +1,5 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import view.menu
+import view.style
 
-print(' - - Aplicacion iniciada - - ')
-
+view.style.start()
 view.menu.menu()

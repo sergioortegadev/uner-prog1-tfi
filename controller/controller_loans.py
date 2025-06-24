@@ -17,7 +17,12 @@ def find_loan_index_by_tool_id(tool_id: int, loans: List[Dict[str, Any]]) -> int
 
 # Main functions for loans
 def loan_list(*args, **kwargs) -> List[Dict[str, Any]]:
-    return load_loans()
+    loans = load_loans()
+
+    return {
+       'message': 'Listado completo de asignaciones' if loans else 'No hay asignaciones registradas.',
+       'to_print': loans if loans else []
+    }
 
 def loan_create(tool_id: int = None, user_dni: int = None) -> Dict[str, Any]:
  if not tool_id or not user_dni:
