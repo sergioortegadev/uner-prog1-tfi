@@ -55,14 +55,14 @@ def loan_create(tool_id: int = None, user_dni: int = None) -> Dict[str, Any]:
     }
 
  # Verificar que la herramienta esté disponible
- if tool.get('tool_available') is False:
+ if tool.get('disponible') is False:
   return {
    'message': f'Error: La herramienta con ID {tool_id} no está disponible.',
    'to_print': {}
   }
 
  # Actualizar el estado de la herramienta
- update_tool(tool_id, {"tool_available": False})
+ update_tool(tool_id, {"disponible": False})
 
  # Crear nuevo préstamo
  new_loan_data = {
@@ -108,10 +108,10 @@ def loan_return(tool_id: int = None, observation: str = None) -> Dict[str, Any]:
 
  # Si se proporciona una observación, agregarla al préstamo
  if observation:
-  loans[loan_index]["observation"] = observation
+  loans[loan_index]["observations"] = observation
 
  # Actualizar el estado de la herramienta a "Disponible"
- update_tool(tool_id, {"tool_available": True})
+ update_tool(tool_id, {"disponible": True})
 
  # Guardar los cambios en el archivo de préstamos
  save_loans(loans)

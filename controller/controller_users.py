@@ -1,10 +1,12 @@
 from typing import Dict, List, Any, Optional
+import os
 import sys
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from model.model_users import create_user, find_user_by_dni, update_user, delete_user, load_users, find_user_by_first_name, find_users_by_user_type
 
+users = load_users()
 
-def user_create(dni=None, first_name=None, last_name=None, email=None, user_type=None, curso=None, taller=None, role=None, departament=None):
+def user_create(dni=None, datos_usuario: Optional[Dict[str, Any]] = None, first_name: Optional[str] = None, last_name: Optional[str] = None, email: Optional[str] = None, user_type: Optional[str] = None, curso: Optional[str] = None, taller: Optional[str] = None, role: Optional[str] = None, dep: Optional[str] = None):
     if not dni or not first_name or not last_name or not email or not user_type:
         return {
             'message': 'Error: Falta completar algún dato. \n Esta función requiere cinco parámetros.',
@@ -12,6 +14,13 @@ def user_create(dni=None, first_name=None, last_name=None, email=None, user_type
         }
     try:
         dni = int(dni)
+        # Verificar si el DNI ya existe en users
+        if any(user.get("dni") == dni for user in users):
+            return {
+                'message': 'Error: Ya existe un usuario registrado con ese DNI.',
+                'to_print': {}
+            }
+
     except (ValueError, TypeError):
         return {
             'message': 'Error: El DNI del usuario debe ser un número entero',
@@ -22,10 +31,12 @@ def user_create(dni=None, first_name=None, last_name=None, email=None, user_type
             "nombre": first_name,
             "apellido": last_name,
             "dni": dni,
+            "email": email,
             "tipo_usuario": user_type,
             "curso": curso,
             "taller": taller,
-            "rol": role
+            "rol": role,
+            "dep": dep,
         })
         return {
             'message': 'Usuario Creado',
@@ -39,7 +50,7 @@ def user_create(dni=None, first_name=None, last_name=None, email=None, user_type
         }
 
 
-def user_update(dni: Optional[int], new_data: Dict[str, Any]):
+def user_update(dni: Optional[int], datos_usuario: Optional[Dict[str, Any]] = None, first_name: Optional[str] = None, last_name: Optional[str] = None, email: Optional[str] = None, user_type: Optional[str] = None, curso: Optional[str] = None, taller: Optional[str] = None, role: Optional[str] = None, dep: Optional[str] = None):
     if not dni:
         return {
             'message': 'Error: DNI de usuario no proporcionado. \n Esta función requiere el parámetro DNI.',
@@ -52,7 +63,30 @@ def user_update(dni: Optional[int], new_data: Dict[str, Any]):
             'to_print': {}
         }
 
-    updated_user = update_user(user["id"], new_data)
+    data_new = {
+        "nombre": first_name,
+        "apellido": last_name,
+        "dni": dni,
+        "email": email,
+        "tipo_usuario": user_type,
+        "curso": curso,
+        "taller": taller,
+        "rol": role,
+        "dep": dep,
+    }
+    if not dni:
+        return {
+            'message': 'Error: DNI de usuario no proporcionado. \n Esta función requiere el parámetro DNI.',
+            'to_print': {}
+        }
+    user = find_user_by_dni(dni)
+    if user is None:
+        return {
+            'message': 'Error: El usuario con el DNI proporcionado no existe.',
+            'to_print': {}
+        }
+
+    updated_user = update_user(user["id"], data_new)
 
     return {
         'message': 'Usuario Actualizado',
@@ -63,7 +97,7 @@ def user_update(dni: Optional[int], new_data: Dict[str, Any]):
 def user_delete(dni: Optional[int] = None):
     if not dni:
         return {
-            'message': 'Error: DNI de usuario no proporcionado. \n Esta función requiere el parámetro DNI.',
+            'message': 'Error: DNI de usuario no proporcionado.',
             'to_print': {}
         }
 
@@ -73,6 +107,15 @@ def user_delete(dni: Optional[int] = None):
             'message': 'Error: El usuario con el DNI proporcionado no existe.',
             'to_print': {}
         }
+    # Confirmación de eliminación
+    confirmation = input(f"¿Estás seguro de que deseas eliminar al usuario ? (s/n): ").strip().lower()
+    if confirmation != 's':
+        return {
+            'message': 'Operación cancelada. El usuario no ha sido eliminado.',
+            'to_print': {}
+        }
+    
+    # Eliminacion de usuario
     has_deleted = delete_user(user['id'])
     if has_deleted:
         return {
@@ -118,9 +161,10 @@ def user_get_by_name(first_name: Optional[str] = None):
 
 
 def users_list():
+    
     return {
-        'message': 'Listado de Usuarios',
-        'to_print': load_users()
+        'message': 'Listado de Usuarios' if users else 'No hay usuarios registrados.',
+        'to_print': users if users else []
     }
 
 

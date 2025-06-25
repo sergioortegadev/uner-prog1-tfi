@@ -2,14 +2,22 @@ from typing import Dict, List, Any, Optional
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from model.model_tools import load_tools, save_json_file
+from model.model_tools import load_tools, save_tools, create_tool
+
+tools = load_tools()
 
 # Accessory functions for tools
 def update_tool(tool_id: int, updates: dict) -> dict:
- # Aquí se podría agregar la lógica para actualizar la herramienta en una base de datos o sistema
- # Por ahora, simplemente retornamos un mensaje de éxito
- print(f"Actualizando herramienta con ID {tool_id} con los siguientes datos: {updates}")
 
+ # tool = tool_get_by_id(tool_id)
+ # tool['disponible'] = updates.get('disponible', tool['disponible'])
+
+ for t in tools:
+  if t['id'] == tool_id:
+   t['disponible'] = updates.get('disponible', t['disponible'])
+   break
+
+ save_tools(tools)
 
 def tool_get_by_id(id_tool: int = None) -> Dict[str, Any]:
  if not id_tool:
@@ -74,90 +82,86 @@ def tools_list_all(*args, **kwargs) -> List[Dict[str, Any]]:
   'to_print': tools if len(tools) > 0 else []
  }
 
-def tools_list_by_type(tool_type=None):
- if not tool_type:
-  return {
-   'message': 'Error: Tipo de herramienta no proporcionado. \n Esta función requiere el parámetro tool_type.',
-   'to_print': {}
-  }
- if not isinstance(tool_type, str):
-  return {
-   'message': 'Error: El tipo de herramienta debe ser una cadena de texto.',
-   'to_print': {}
-  }
- # Simulación de listado de herramientas por tipo
- # Aquí se podría agregar la lógica para obtener las herramientas de una base de datos o sistema
- return {
-  'message': 'Listado de Herramientas por Tipo',
-  'to_print': [
-   {
-    "tool_id": 1,
-    "tool_name": "martillo",
-    "tool_type": tool_type,
-    "tool_brand": "Truper",
-    "tool_model": "MX123",
-    "tool_state": "nuevo",
-    "tool_location": "S01-E01-R01",
-    "tool_observations": "",
-    "tool_available": True
-   },
-   {
-    "tool_id": 5,
-    "tool_name": "martillo grande",
-    "tool_type": tool_type,
-    "tool_brand": "Stanley",
-    "tool_model": "DX123",
-    "tool_state": "usado",
-    "tool_location": "S01-E01-R02",
-    "tool_observations": "muy desgastado",
-    "tool_available": False
-   },
-   {
-    "tool_id": 13,
-    "tool_name": "martillo para chapa",
-    "tool_type": tool_type,
-    "tool_brand": "Stanley",
-    "tool_model": "DX124",
-    "tool_state": "usado",
-    "tool_location": "S01-E01-R03",
-    "tool_observations": "",
-    "tool_available": True
-   }
-  ]
- }
+# No implementado el tipo de herramienta en el JSON
+# def tools_list_by_type(tool_type=None):
+#  if not tool_type:
+#   return {
+#    'message': 'Error: Tipo de herramienta no proporcionado. \n Esta función requiere el parámetro tool_type.',
+#    'to_print': {}
+#   }
+#  if not isinstance(tool_type, str):
+#   return {
+#    'message': 'Error: El tipo de herramienta debe ser una cadena de texto.',
+#    'to_print': {}
+#   }
+#  # Simulación de listado de herramientas por tipo
+#  # Aquí se podría agregar la lógica para obtener las herramientas de una base de datos o sistema
+#  return {
+#   'message': 'Listado de Herramientas por Tipo',
+#   'to_print': [
+#    {
+#     "tool_id": 1,
+#     "tool_name": "martillo",
+#     "tool_type": tool_type,
+#     "tool_brand": "Truper",
+#     "tool_model": "MX123",
+#     "tool_state": "nuevo",
+#     "tool_location": "S01-E01-R01",
+#     "tool_observations": "",
+#     "tool_available": True
+#    },
+#    {
+#     "tool_id": 5,
+#     "tool_name": "martillo grande",
+#     "tool_type": tool_type,
+#     "tool_brand": "Stanley",
+#     "tool_model": "DX123",
+#     "tool_state": "usado",
+#     "tool_location": "S01-E01-R02",
+#     "tool_observations": "muy desgastado",
+#     "tool_available": False
+#    },
+#    {
+#     "tool_id": 13,
+#     "tool_name": "martillo para chapa",
+#     "tool_type": tool_type,
+#     "tool_brand": "Stanley",
+#     "tool_model": "DX124",
+#     "tool_state": "usado",
+#     "tool_location": "S01-E01-R03",
+#     "tool_observations": "",
+#     "tool_available": True
+#    }
+#   ]
+#  }
 
-def tool_create(name=None, tool_type=None, brand=None, model=None, state=None, location=None, observations=None, available=None):
- if not name or not tool_type or not brand or not model or not state or not location or available == None:
+def tool_create(nombre: str = None, tipo: str = None, marca: str = None, modelo: str = None, estado: str = None, ubicacion: str = None, observaciones: str = ''):
+ if not nombre or not tipo or not marca or not modelo or not estado or not ubicacion:
   return {
    'message': 'Error: Todos los campos son requeridos, menos observaciones.',
    'to_print': {}
   }
- if not isinstance(name, str) or not isinstance(tool_type, str) or not isinstance(brand, str) or not isinstance(model, str) or not isinstance(state, str) or not isinstance(location, str) or not isinstance(observations, str):
+ if not isinstance(nombre, str) or not isinstance(tipo, str) or not isinstance(marca, str) or not isinstance(modelo, str) or not isinstance(estado, str) or not isinstance(ubicacion, str) or not isinstance(observaciones, str):
   return {
    'message': 'Error: El nombre, el tipo, la marca, el modelo, el estado, la ubicación y/o las observaciones de la herramienta deben ser cadenas de texto.',
    'to_print': {}
   }
- if not isinstance(available, bool):
-  return {
-   'message': 'Error: La disponibilidad de la herramienta debe ser un valor booleano (True o False).',
-   'to_print': {}
-  }
- # Simulación de creación de herramienta
- # Aquí se podría agregar la lógica para registrar la herramienta en una base de datos o sistema
- # Por ahora, simplemente retornamos un mensaje de éxito
+
+ new_tool = {
+        "nombre": nombre,
+        "tipo": tipo,
+        "marca": marca,
+        "modelo": modelo,
+        "estado": estado,
+        "ubicacion": ubicacion,
+        "observaciones": observaciones
+    }
+
+ created_tool = create_tool(new_tool)
+
  return {
-  'message': 'Herramienta Creada',
-  'to_print': {
-   "tool_id": 1,
-   "tool_name": name,
-   "tool_type": tool_type,
-   "tool_brand": brand,
-   "tool_model": model,
-   "tool_state": state,
-   "tool_location": location,
-   "tool_observations": observations,
-   "tool_available": available
-  }
+  'message': 'Herramienta Creada' if created_tool else 'Error al crear la herramienta',
+  'to_print': created_tool if created_tool else {}
  }
 
 def tool_update(id=None):
@@ -200,22 +204,32 @@ def tool_delete(id=None):
    'message': 'Error: El ID de la herramienta debe ser un número entero',
    'to_print': {}
   }
- # Simulación de eliminación de herramienta 
- # Aquí se podría agregar la lógica para eliminar el usuario en una base de datos o sistema
- # Por ahora, simplemente retornamos un mensaje de éxito
- return {
-  'message': 'Herramienta Eliminada',
-  'to_print': { 
-   "tool_id": 1,
-   "tool_name": "martillo",
-   "tool_type": "algo",
-   "tool_brand": "Truper",
-   "tool_model": "MX123",
-   "tool_state": "nuevo",
-   "tool_location": "S01-E01-R01",
-   "tool_observations": "rota",
-   "tool_available": False
+ 
+ tools = load_tools()
+ tool_to_delete = None
+ for t in tools:
+  if t['id'] == id:
+   tool_to_delete = t
+   break
+
+ if not tool_to_delete:
+  return {
+   'message': 'Herramienta no encontrada',
+   'to_print': {}
   }
+ confirmation = input(f"¿Estás seguro de que deseas eliminar la herramienta con ID {id}? (s/n): ")
+ if confirmation.lower() != 's':
+  return {
+   'message': 'Eliminación cancelada',
+   'to_print': {}
+  }
+
+ tools = [t for t in tools if t['id'] != id]
+ save_tools(tools)
+
+ return {
+  'message': 'Herramienta eliminada correctamente',
+  'to_print': tool_to_delete
  }
 
 
