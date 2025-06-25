@@ -44,33 +44,34 @@ def tool_get_by_id(id_tool: int = None) -> Dict[str, Any]:
   'to_print': tool if tool else {}
  }
 
-def tool_get_by_name(name=None):
- if not name:
+def tool_get_by_name(partial_name=None):
+ if not partial_name:
   return {
-    'message': 'Error: Nombre de herramienta no proporcionado. \n Esta función requiere el parámetro "name".',
+    'message': 'Error: Nombre de herramienta no proporcionado. Esta función requiere el parámetro "name".',
     'to_print': {}
   }
- if not isinstance(name, str):
+ if not isinstance(partial_name, str):
   return {
    'message': 'Error: El nombre de la herramienta debe ser una cadena de texto',
    'to_print': {}
   }
- # Simulación de obtención de herramienta por nombre
- # Aquí se podría agregar la lógica para obtener la herramienta de una base de datos o sistema
+ 
+ matches = [
+        tool for tool in tools
+        if 'nombre' in tool and partial_name.lower() in tool['nombre'].lower()
+ ]
+
+ if not matches:
+        return {
+            'message': 'La herramienta con el nombre proporcionado no existe.',
+            'to_print': {}
+        }
+
  return {
-  'message': 'Datos de la Herramienta ',
-  'to_print': { 
-   "id": 1,
-   "tool_name": "martillo",
-   "tool_type": "algo",
-   "tool_brand": "Truper",
-   "tool_model": "MX123",
-   "tool_state": "nuevo",
-   "tool_location": "S01-E01-R01",
-   "tool_observations": "",
-   "tool_available": True
-  },
+        'message': f'Se encontraron {len(matches)} coincidencia(s).',
+        'to_print': matches
  }
+
 
 def tools_list_all(*args, **kwargs) -> List[Dict[str, Any]]:
  # Estos parámetros, permite que acepte argumentos opcionales y los ignore. Sin ellos se rompe la ejecución si se le pasa un argumento que no espera.
@@ -164,34 +165,55 @@ def tool_create(nombre: str = None, tipo: str = None, marca: str = None, modelo:
   'to_print': created_tool if created_tool else {}
  }
 
-def tool_update(id=None):
- if not id:
+def tool_update(tool_id: Optional[int],datos_herramienta: Optional[Dict[str, Any]] = None, nombre: str = None, tipo: str = None, marca: str = None, modelo: str = None, estado: str = None, ubicacion: str = None, observaciones: str = ''):
+ if not tool_id:
   return {
    'message': 'Error: ID de herramienta no proporcionado. \n Esta función requiere el parámetro ID.',
    'to_print': {}
   }
- if not isinstance(id, int):
+ if not isinstance(tool_id, int):
   return {
    'message': 'Error: El ID de la herramienta debe ser un número entero',
    'to_print': {}
   }
- # Simulación de actualización de herramienta
- # Aquí se podría agregar la lógica para actualizar la herramienta en una base de datos o sistema
- # Por ahora, simplemente retornamos un mensaje de éxito
- return {
-  'message': 'Herramienta Actualizada',
-  'to_print': { 
-   "tool_id": 1,
-   "tool_name": "martillo",
-   "tool_type": "algo",
-   "tool_brand": "Truper",
-   "tool_model": "MX123",
-   "tool_state": "nuevo",
-   "tool_location": "S01-E01-R01",
-   "tool_observations": "rota",
-   "tool_available": False
-  }
+ 
+ tool = tool_get_by_id(tool_id)['to_print']
+ if tool is None:
+  return {
+            'message': 'Error: La herramiento con el ID proporcionado no existe.',
+            'to_print': {}
+        }
+ 
+ data_new = {
+  "nombre":  nombre,
+  "tipo": tipo,
+  "marca": marca,
+  "modelo":modelo,
+  "estado": estado,
+  "ubicacion": ubicacion,
+  "observaciones":  observaciones,
  }
+
+ for t in tools:
+  if t['id'] == tool_id:
+   t['nombre'] = data_new.get('nombre', t['nombre'])
+   t['tipo'] = data_new.get('tipo', t['tipo'])
+   t['marca'] = data_new.get('marca', t['marca'])
+   t['modelo'] = data_new.get('modelo', t['modelo'])
+   t['estado'] = data_new.get('estado', t['estado'])
+   t['ubicacion'] = data_new.get('ubicacion', t['ubicacion'])
+   t['observaciones'] = data_new.get('observaciones', t['observaciones'])
+   break
+
+ save_tools(tools)
+
+ return {
+     'message': 'Herramienta actualizada en estos campos',
+     'to_print': data_new
+ }
+
+
+
 
 def tool_delete(id=None):
  if not id:

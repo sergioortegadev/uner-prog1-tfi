@@ -1,35 +1,53 @@
+from typing import Dict, List, Any, Optional
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from model.model_maintenance import load_maintenance
+from model.model_maintenance import load_maintenance, save_maintenance, create_maintenance
+from controller.controller_tools import tool_get_by_id
+from controller.controller_tools import update_tool
 
-def maintenance_create(id_tool=None, date=None, maintenance_type=None, description=None, responsible=None, cost=None, next=None):
- if (not id_tool or not date or not maintenance_type or not description or not responsible or not cost or not next):
+maintenance = load_maintenance()
+
+def maintenance_create(tool_id: Optional[int], maintenance_data: Optional[Dict[str, Any]] = None, fecha: str = None, tipo: str = None, descripcion: str = None, responsable: str = None, costo: str = None, siguiente: str = None):
+ if (not tool_id):
   return {
    'message': 'Error: Todos los campos son requeridos',
    'to_print': {}
   }
- if not isinstance(id_tool, int) or not isinstance(date, str) or not isinstance(maintenance_type, str) or not isinstance(description, str) or not isinstance(responsible, str) or not isinstance(cost, str) or not isinstance(next, str):
+ 
+ tool = tool_get_by_id(tool_id)['to_print']
+ if not tool:
   return {
-   'message': 'Error: El id_tool debe ser un entero, y los demás datos deben ser cadenas de texto.',
+   'message': 'Error: Herramienta no encontrada con ese ID',
    'to_print': {}
   }
- # Simulación de creación de mantenimiento
- # Aquí se podría agregar la lógica para registrar la herramienta en una base de datos o sistema
- # Por ahora, simplemente retornamos un mensaje de éxito.
- return {
-  'message': 'Mantenimiento Creado',
-  'to_print': {   
-    "id": 1,
-    "id_tool": id_tool,
-    "date": date,
-    "maintenance_type": maintenance_type,
-    "description": description,
-    "responsible": responsible,
-    "cost": cost,
-    "next": next
-  }
+ 
+ new_data = {
+  "tool_id": tool_id,
+  "herramienta": tool['nombre'],
+  "fecha": fecha,
+  "tipo": tipo,
+  "descripcion": descripcion,
+  "responsable": responsable,
+  "costo": costo,
+  "siguiente": siguiente, 
  }
+
+ created_maintenance = create_maintenance(new_data)
+
+ # Habilitar cuando se implemente función 'Mantenimiento Completado'
+ # update_tool(tool_id, {"disponible": False})
+
+ return {
+  'message': 'Registro de mantenimiento realizado con éxito' if created_maintenance else 'No se pudo registrar el mantenimiento.',
+    'to_print': created_maintenance if created_maintenance else []
+ }
+ 
+
+ 
+
+
+
 
 def maintenance_list_all(*args, **kwargs):
 
@@ -48,3 +66,4 @@ def maintenance_list_all(*args, **kwargs):
 # print(maintenance_create(2))
 # print(maintenance_list_all())
 # print(maintenance_list_all('martillo'))
+# print(maintenance_create(1))

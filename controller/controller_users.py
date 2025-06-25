@@ -74,17 +74,6 @@ def user_update(dni: Optional[int], datos_usuario: Optional[Dict[str, Any]] = No
         "rol": role,
         "dep": dep,
     }
-    if not dni:
-        return {
-            'message': 'Error: DNI de usuario no proporcionado. \n Esta función requiere el parámetro DNI.',
-            'to_print': {}
-        }
-    user = find_user_by_dni(dni)
-    if user is None:
-        return {
-            'message': 'Error: El usuario con el DNI proporcionado no existe.',
-            'to_print': {}
-        }
 
     updated_user = update_user(user["id"], data_new)
 
@@ -142,21 +131,27 @@ def user_get_by_dni(dni: Optional[int]):
     }
 
 
-def user_get_by_name(first_name: Optional[str] = None):
-    if not first_name or first_name.strip() == '':
+def user_get_by_name(partial_name: Optional[str] = None):
+    if not partial_name or partial_name.strip() == '':
         return {
-            'message': 'Error: Nombre de usuario no proporcionado. \n Esta función requiere el parámetro "name".',
+            'message': 'Error: Nombre de usuario no proporcionado. Esta función requiere el parámetro "name".',
             'to_print': {}
         }
-    user = find_user_by_first_name(first_name)
-    if user is None:
+    
+    matches = [
+        user for user in users
+        if 'nombre' in user and partial_name.lower() in user['nombre'].lower()
+    ]
+
+    if not matches:
         return {
             'message': 'Usuario con el nombre proporcionado no existe.',
             'to_print': {}
         }
+
     return {
-        'message': 'Datos del Usuario',
-        'to_print': user
+        'message': f'Se encontraron {len(matches)} coincidencia(s).',
+        'to_print': matches
     }
 
 
@@ -175,13 +170,13 @@ def users_list_by_type(user_type: Optional[str] = None):
             "to_print": {}
         }
     normalized_user_type = user_type.strip().title()
-    if normalized_user_type not in ['Estudiante', 'Personal']:
+    if normalized_user_type not in ['1', '2']:
         return {
-            'message': 'Error: Tipo de usuario no válido. Debe ser "Estudiante" o "Personal".',
+            'message': 'Error: Tipo de usuario no válido. Debe ser "1" para Estudiante o "2" para Personal.',
             'to_print': {}
         }
     return {
-        'message': f'Listado de Usuarios por Tipo: {normalized_user_type}',
+        'message': f'Listado de Usuarios por Tipo: {'Estudiante' if normalized_user_type=='1'else'Personal'}',
         'to_print': find_users_by_user_type(normalized_user_type)
     }
 

@@ -120,8 +120,9 @@ def find_users_by_user_type(user_type: str) -> List[Dict[str, Any]]:
     Returns:
         Lista de diccionarios de usuarios si se encuentran, lista vacía en caso contrario
     """
+    user_type_text = 'Estudiante' if user_type == '1' else 'Personal'
     users = load_users()
-    return [user for user in users if user["tipo_usuario"].lower() == user_type.lower()]
+    return [user for user in users if user["tipo_usuario"].lower() == user_type_text.lower()]
 
 
 def find_user_by_id(user_id: int) -> Optional[Dict[str, Any]]:

@@ -22,5 +22,29 @@
         "taller": "taller no",
         "rol": "",
         "dep": ""
+    },
+    {
+        "id": 3,
+        "nombre": "Jhonny",
+        "apellido": "Quispe",
+        "dni": 44556677,
+        "tipo_usuario": "Estudiante",
+        "email": "eljhonny@quispe.com",
+        "curso": "2do",
+        "taller": "electronica",
+        "rol": "",
+        "dep": ""
+    },
+    {
+        "id": 4,
+        "nombre": "Ana",
+        "apellido": "Pedernera",
+        "dni": 11223344,
+        "tipo_usuario": "Personal",
+        "email": "profeana@esc.com",
+        "curso": "",
+        "taller": "",
+        "rol": "docente",
+        "dep": ""
     }
 ]
