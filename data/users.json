@@ -1,13 +1,26 @@
 [
-   
     {
-        "id": 31,
-        "nombre": "pepe",
-        "apellido": "perez",
-        "dni": 1234567,
-        "tipo_usuario": "Estudiante",
-        "curso": "eletricidad",
+        "id": 2,
+        "nombre": "Pedro",
+        "apellido": "De La Fuente",
+        "dni": 99887766,
+        "tipo_usuario": "Personal",
+        "email": "fuente@dela.com",
+        "curso": "",
         "taller": "",
-        "rol": ""
+        "rol": "docente",
+        "dep": "tec"
+    },
+    {
+        "id": 1,
+        "nombre": "Maria",
+        "apellido": "Acosta",
+        "dni": 12345678,
+        "tipo_usuario": "Estudiante",
+        "email": "mari@hotmail.com",
+        "curso": "6",
+        "taller": "taller no",
+        "rol": "",
+        "dep": ""
     }
 ]

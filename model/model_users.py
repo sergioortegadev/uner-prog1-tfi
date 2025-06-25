@@ -51,18 +51,7 @@ def validate_dni(dni: str, users: List[Dict[str, Any]], exclude_id: Optional[int
 
 
 def create_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
-    """Crea un nuevo usuario
-
-    Args:
-        user_data: Diccionario con los datos del usuario a crear
-
-    Returns:
-        Diccionario del usuario creado con su ID
-
-    Raises:
-        ValueError: Si falta algún campo requerido o la validación falla
-    """
-    # Cargar usuarios existentes
+   
     users = load_users()
 
     for field in REQUIRED_USER_FIELDS:

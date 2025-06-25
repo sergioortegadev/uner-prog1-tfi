@@ -1,5 +1,6 @@
 from typing import Dict, List, Any, Optional
-#from models.data import get_next_id, load_json_file, save_json_file
+from model.model_data import load_json_file, save_json_file
+from model.new_id import new_id
 from enum import Enum
 from model.model_data import load_json_file, save_json_file
 
@@ -60,54 +61,25 @@ def save_tools(tools: List[Dict[str, Any]]) -> None:
 #             f"Estado inválido. Debe ser uno de: {', '.join([s.value for s in ToolStatus])}")
 
 
-# def create_tool(tool_data: Dict[str, Any]) -> Dict[str, Any]:
-#     """Crear nueva herramienta
+def create_tool(new_tool: Dict[str, Any]) -> Dict[str, Any]:
+    
+    tools = load_tools()
 
-#     La herramienta se crea con los campos obligatorios y los campos opcionales
-#     que se hayan proporcionado. El estado se setea en "Disponible" si no se
-#     proporciona.
+    new_tool = {
+        "id": new_id(tools),
+        "nombre": new_tool["nombre"],
+        "tipo": new_tool["tipo"],
+        "marca": new_tool.get("marca", ""),
+        "modelo": new_tool.get("modelo", ""),
+        "estado": new_tool["estado"],
+        "ubicacion": new_tool["ubicacion"],
+        "observaciones": new_tool.get("observaciones", ""),
+        "disponible": True,
+    }
 
-#     Args:
-#         tool_data (Dict[str, Any]): Diccionario con los campos de la herramienta
-
-#     Returns:
-#         Dict[str, Any]: Diccionario de la herramienta recién creada
-#     Raises:
-#         ValueError: Si faltan campos obligatorios o si el tipo/estado no es válido
-#     """
-#     tools = load_tools()
-
-#     # Validar campos requeridos
-#     for field in REQUIRED_TOOL_FIELDS:
-#         if not tool_data.get(field):
-#             raise ValueError(f"El campo {field} es obligatorio")
-
-#     # Validar tipo y estado
-#     if "tipo" in tool_data:
-#         validate_tool_type(tool_data["tipo"])
-#         if "estado" in tool_data and tool_data["estado"] is not None:
-#             validate_tool_status(tool_data["estado"])
-#         validate_tool_status(tool_data.get("estado"))
-
-#     new_tool = {
-#         "id": get_next_id(tools),
-#         "nombre": tool_data["nombre"],
-#         "tipo": tool_data["tipo"],
-#         "estado": tool_data.get("estado", ToolStatus.DISPONIBLE.value),
-#         "ubicacion": tool_data["ubicacion"]
-#     }
-
-#     # Agregar campos opcionales
-#     OPTIONAL_FIELDS = ["marca", "modelo",
-#                        "numero_serie", "fecha_adquisicion", "notas"]
-#     for field in OPTIONAL_FIELDS:
-#         if field in tool_data:
-#             new_tool[field] = tool_data[field]
-
-#     # Guardar la herramienta en la base de datos
-#     tools.append(new_tool)
-#     save_tools(tools)
-#     return new_tool
+    tools.append(new_tool)
+    save_tools(tools)
+    return new_tool
 
 
 # def find_tool_by_id(tool_id: int) -> Optional[Dict[str, Any]]:
