@@ -6,13 +6,13 @@ from model.new_id import new_id
 from enum import Enum
 
 FILE = "maintenance.json"
-REQUIRED_MAINTENANCE_FIELDS = ["id_tool",
-                               "maintenance_type", "description", "responsible"]
+# REQUIRED_MAINTENANCE_FIELDS = ["id_tool",
+#                                "maintenance_type", "description", "responsible"]
 
 
-class MaintenanceType(Enum):
-    PREVENTIVO = "Preventivo"
-    CORRECTIVO = "Correctivo"
+# class MaintenanceType(Enum):
+#     PREVENTIVO = "Preventivo"
+#     CORRECTIVO = "Correctivo"
 
 
 def load_maintenance() -> List[Dict[str, Any]]:
@@ -20,85 +20,47 @@ def load_maintenance() -> List[Dict[str, Any]]:
     return load_json_file(FILE, [])
 
 
-def save_maintenance(records: List[Dict[str, Any]]) -> None:
+def save_maintenance(data: List[Dict[str, Any]]) -> None:
     """Guardar registros de mantenimiento en el archivo JSON"""
-    save_json_file(FILE, records)
+    save_json_file(FILE, data)
 
 
-# def create_maintenance(maintenance_data: Dict[str, Any]) -> Dict[str, Any]:
-#     """Crear nuevo registro de mantenimiento.
+def create_maintenance(maintenance_data: Dict[str, Any]) -> Dict[str, Any]:
+   
+    maintenance = load_maintenance()
 
-#     La función valida los campos requeridos y opcionales, verifica la existencia de la herramienta y el tipo de mantenimiento.
-#     Luego crea un nuevo registro de mantenimiento, actualiza el estado de la herramienta y lo guarda en el archivo JSON.
+    new_record = {
+        "id": new_id(maintenance),
+        "tool_id": maintenance_data["tool_id"],
+        "herramienta": maintenance_data["herramienta"],
+        "fecha": maintenance_data["fecha"],
+        "tipo": maintenance_data["tipo"],
+        "descripcion": maintenance_data["descripcion"],
+        "responsable": maintenance_data["responsable"],
+        "costo": maintenance_data["costo"],
+        "siguiente": maintenance_data["siguiente"]
+    }
+
+    maintenance.append(new_record)
+    save_maintenance(maintenance)
+    return new_record
+
+
+# def find_maintenance_index_by_id(records: List[Dict[str, Any]], maintenance_id: int) -> int:
+#     """
+#     Buscar índice de mantenimiento por ID.
 
 #     Args:
-#         maintenance_data (Dict[str, Any]): Datos del mantenimiento a registrar.
+#         records (List[Dict[str, Any]]): Lista de registros de mantenimiento.
+#         maintenance_id (int): ID del mantenimiento a buscar.
 
 #     Returns:
-#         Dict[str, Any]: Registro de mantenimiento recién creado.
-
-#     Raises:
-#         ValueError: Si faltan campos obligatorios, la herramienta no existe, o el tipo no es válido.
+#         int: Índice del mantenimiento si se encuentra, -1 en caso contrario.
 #     """
-#     records = load_maintenance()
-
-#     # Validar campos requeridos
-#     for field in REQUIRED_MAINTENANCE_FIELDS:
-#         if field not in maintenance_data:
-#             raise ValueError(f"El campo {field} es obligatorio")
-
-#     # Validar que exista la herramienta
-#     tool = find_tool_by_id(maintenance_data.get("id_herramienta"))
-#     if not tool:
-#         raise ValueError(
-#             f"Herramienta con ID {maintenance_data.get('id_herramienta')} no encontrada")
-
-#     # Validar tipo de mantenimiento
-#     if maintenance_data.get("tipo") not in MaintenanceType:
-#         raise ValueError("El tipo debe ser 'Preventivo' o 'Correctivo'")
-
-#     # Obtener la fecha actual en formato ISO
-#     current_timestamp = datetime.now().isoformat()
-
-#     # Crear nuevo registro de mantenimiento
-#     new_record = {
-#         "id": new_id(records),
-#         "id_tool": maintenance_data["id_herramienta"],
-#         "date": current_timestamp,
-#         "maintenance_type": maintenance_data["tipo"],
-#         "description": maintenance_data["descripcion"],
-#         "responsible": maintenance_data["responsable"]
-#     }
-
-#     # Agregar campos opcionales
-#     if "cost" in maintenance_data:
-#         new_record["cost"] = maintenance_data["cost"]
-#     if "next" in maintenance_data:
-#         new_record["next"] = maintenance_data["next"]
-
-#     # Actualizar estado de la herramienta a "En Mantenimiento"
-#     update_tool(tool["id"], {"estado": ToolType.EN_MANTENIMIENTO})
-
-#     records.append(new_record)
-#     save_maintenance(records)
-#     return new_record
-
-
-def find_maintenance_index_by_id(records: List[Dict[str, Any]], maintenance_id: int) -> int:
-    """
-    Buscar índice de mantenimiento por ID.
-
-    Args:
-        records (List[Dict[str, Any]]): Lista de registros de mantenimiento.
-        maintenance_id (int): ID del mantenimiento a buscar.
-
-    Returns:
-        int: Índice del mantenimiento si se encuentra, -1 en caso contrario.
-    """
-    for i, record in enumerate(records):
-        if record["id"] == maintenance_id:
-            return i
-    return -1
+#     for i, record in enumerate(records):
+#         if record["id"] == maintenance_id:
+#             return i
+#     return -1
 
 
 # def complete_maintenance(maintenance_id: int, tool_status: str = ToolStatus.DISPONIBLE.value) -> Dict[str, Any]:
@@ -134,17 +96,17 @@ def find_maintenance_index_by_id(records: List[Dict[str, Any]], maintenance_id: 
 #     return records[record_index]
 
 
-def get_tool_maintenance(tool_id: int) -> List[Dict[str, Any]]:
-    """Obtener historial de mantenimiento de una herramienta.
+# def get_tool_maintenance(tool_id: int) -> List[Dict[str, Any]]:
+#     """Obtener historial de mantenimiento de una herramienta.
 
-    La función devuelve una lista con todos los registros de mantenimiento de una herramienta con el ID especificado.
+#     La función devuelve una lista con todos los registros de mantenimiento de una herramienta con el ID especificado.
 
-    Args:
-        tool_id (int): ID de la herramienta a buscar.
+#     Args:
+#         tool_id (int): ID de la herramienta a buscar.
 
-    Returns:
-        List[Dict[str, Any]]: Lista de registros de mantenimiento.
-    """
-    records = load_maintenance()
-    # Filtrar registros de mantenimiento por herramienta
-    return [record for record in records if record["id_herramienta"] == tool_id]
+#     Returns:
+#         List[Dict[str, Any]]: Lista de registros de mantenimiento.
+#     """
+#     records = load_maintenance()
+#     # Filtrar registros de mantenimiento por herramienta
+#     return [record for record in records if record["id_herramienta"] == tool_id]
