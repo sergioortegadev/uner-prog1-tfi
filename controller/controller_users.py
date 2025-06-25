@@ -180,17 +180,3 @@ def users_list_by_type(user_type: Optional[str] = None):
         'to_print': find_users_by_user_type(normalized_user_type)
     }
 
-
-# Ejemplo de uso
-# print(user_create(12345678, 'Juan', 'Perez', 'usuario1@ejemplo.com', 'Estudiante'))
-# print(user_update(12345678))
-# print(user_delete(12345678))
-# print(user_get_by_dni(22232425))
-# print(user_get_by_name('Juan'))
-# print(users_list())
-# print(users_list('pepe'))
-# print(users_list_by_type('Estudiante'))
-# print(users_list_by_type('Personal'))
-# print(users_list_by_type('Administrador'))  # Esto debería devolver un error
-# print(users_list_by_type())  # Esto debería devolver un error
-# print(users_list_by_type())  # Esto debería devolver un error

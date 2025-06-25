@@ -1,8 +1,8 @@
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any, Optional
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from model.model_maintenance import load_maintenance, save_maintenance, create_maintenance
+from model.model_maintenance import load_maintenance, create_maintenance
 from controller.controller_tools import tool_get_by_id
 from controller.controller_tools import update_tool
 
@@ -35,8 +35,6 @@ def maintenance_create(tool_id: Optional[int], maintenance_data: Optional[Dict[s
 
  created_maintenance = create_maintenance(new_data)
 
- # Habilitar cuando se implemente función 'Mantenimiento Completado'
- # update_tool(tool_id, {"disponible": False})
 
  return {
   'message': 'Registro de mantenimiento realizado con éxito' if created_maintenance else 'No se pudo registrar el mantenimiento.',

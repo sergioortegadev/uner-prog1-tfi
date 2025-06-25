@@ -253,7 +253,6 @@ def menu_herramientas():
         print("   4 - Crear herramienta")
         print("   5 - Editar herramienta")
         print("   6 - Eliminar herramienta")
-        # print("   7 - Listar por tipo") # No implementado en el JSON
         print("   0 - Volver")
 
         opcion = validar_opcion("\n   Seleccione una opción: ", [str(i) for i in range(8)])
@@ -283,9 +282,6 @@ def menu_herramientas():
                     print("Operación cancelada.")
                     return
                 imprimir_resultado(herramientas.tool_delete(id_tool))
-            # case "7":
-            #     tipo = input("Tipo: ")
-            #     imprimir_resultado(herramientas.tools_list_by_type(tipo))
             case "0":
                 return
 
