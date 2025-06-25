@@ -1,164 +1,134 @@
 [
-  { "tool_id": 1, "tool_name": "Martillo", "tool_brand": "Truper", "tool_state": "nuevo", "tool_available": true },
-  {
-    "tool_id": 2,
-    "tool_name": "Destornillador plano",
-    "tool_brand": "Stanley",
-    "tool_state": "usado",
-    "tool_available": false
-  },
-  {
-    "tool_id": 3,
-    "tool_name": "Destornillador Phillips",
-    "tool_brand": "Stanley",
-    "tool_state": "usado",
-    "tool_available": true
-  },
-  { "tool_id": 4, "tool_name": "Llave inglesa", "tool_brand": "Bahco", "tool_state": "nuevo", "tool_available": true },
-  { "tool_id": 5, "tool_name": "Sierra manual", "tool_brand": "Irwin", "tool_state": "usado", "tool_available": false },
-  {
-    "tool_id": 6,
-    "tool_name": "Alicate universal",
-    "tool_brand": "Knipex",
-    "tool_state": "nuevo",
-    "tool_available": true
-  },
-  {
-    "tool_id": 7,
-    "tool_name": "Pinza de punta",
-    "tool_brand": "Knipex",
-    "tool_state": "nuevo",
-    "tool_available": false
-  },
-  { "tool_id": 8, "tool_name": "Llave Allen", "tool_brand": "Bondhus", "tool_state": "usado", "tool_available": true },
-  {
-    "tool_id": 9,
-    "tool_name": "Cinta métrica",
-    "tool_brand": "Stanley",
-    "tool_state": "nuevo",
-    "tool_available": false
-  },
-  {
-    "tool_id": 10,
-    "tool_name": "Nivel de burbuja",
-    "tool_brand": "Stanley",
-    "tool_state": "nuevo",
-    "tool_available": true
-  },
-  {
-    "tool_id": 11,
-    "tool_name": "Taladro eléctrico",
-    "tool_brand": "Bosch",
-    "tool_state": "usado",
-    "tool_available": false
-  },
-  {
-    "tool_id": 12,
-    "tool_name": "Lijadora orbital",
-    "tool_brand": "DeWalt",
-    "tool_state": "en reparación",
-    "tool_available": true
-  },
-  {
-    "tool_id": 13,
-    "tool_name": "Amoladora angular",
-    "tool_brand": "Makita",
-    "tool_state": "usado",
-    "tool_available": false
-  },
-  {
-    "tool_id": 14,
-    "tool_name": "Sierra circular",
-    "tool_brand": "Makita",
-    "tool_state": "nuevo",
-    "tool_available": true
-  },
-  {
-    "tool_id": 15,
-    "tool_name": "Pistola de calor",
-    "tool_brand": "Black+Decker",
-    "tool_state": "usado",
-    "tool_available": false
-  },
-  {
-    "tool_id": 16,
-    "tool_name": "Engrapadora manual",
-    "tool_brand": "Arrow",
-    "tool_state": "nuevo",
-    "tool_available": true
-  },
-  {
-    "tool_id": 17,
-    "tool_name": "Pistola de silicona",
-    "tool_brand": "Stanley",
-    "tool_state": "usado",
-    "tool_available": false
-  },
-  { "tool_id": 18, "tool_name": "Llave de tubo", "tool_brand": "Bahco", "tool_state": "nuevo", "tool_available": true },
-  {
-    "tool_id": 19,
-    "tool_name": "Cepillo manual",
-    "tool_brand": "Stanley",
-    "tool_state": "usado",
-    "tool_available": false
-  },
-  {
-    "tool_id": 20,
-    "tool_name": "Sargento de carpintero",
-    "tool_brand": "Irwin",
-    "tool_state": "nuevo",
-    "tool_available": true
-  },
-  { "tool_id": 21, "tool_name": "Cortafrío", "tool_brand": "Truper", "tool_state": "usado", "tool_available": false },
-  {
-    "tool_id": 22,
-    "tool_name": "Pala de punta",
-    "tool_brand": "Tramontina",
-    "tool_state": "nuevo",
-    "tool_available": true
-  },
-  {
-    "tool_id": 23,
-    "tool_name": "Rastrillo de jardín",
-    "tool_brand": "Tramontina",
-    "tool_state": "nuevo",
-    "tool_available": false
-  },
-  {
-    "tool_id": 24,
-    "tool_name": "Motosierra",
-    "tool_brand": "Husqvarna",
-    "tool_state": "en reparación",
-    "tool_available": true
-  },
-  {
-    "tool_id": 25,
-    "tool_name": "Compresor de aire",
-    "tool_brand": "Hyundai",
-    "tool_state": "usado",
-    "tool_available": false
-  },
-  {
-    "tool_id": 26,
-    "tool_name": "Soldadora inverter",
-    "tool_brand": "Kawashima",
-    "tool_state": "nuevo",
-    "tool_available": true
-  },
-  {
-    "tool_id": 27,
-    "tool_name": "Taladro inalámbrico",
-    "tool_brand": "Bosch",
-    "tool_state": "nuevo",
-    "tool_available": false
-  },
-  { "tool_id": 28, "tool_name": "Caladora", "tool_brand": "Makita", "tool_state": "usado", "tool_available": true },
-  {
-    "tool_id": 29,
-    "tool_name": "Cortadora de cerámica",
-    "tool_brand": "Rubi",
-    "tool_state": "nuevo",
-    "tool_available": false
-  },
-  { "tool_id": 30, "tool_name": "Pulidora", "tool_brand": "DeWalt", "tool_state": "usado", "tool_available": true }
+    {
+        "id": 1,
+        "nombre": "Soldadora Eléctrica",
+        "tipo": "Herrería",
+        "marca": "DeWalt",
+        "modelo": "1001",
+        "estado": "Reparada",
+        "ubicacion": "S01-E10-R01",
+        "observaciones": "",
+        "disponible": true
+    },
+    {
+        "id": 2,
+        "nombre": "Taladro de Banco",
+        "tipo": "Mecánica",
+        "marca": "Bosch",
+        "modelo": "TB-250",
+        "estado": "Nueva",
+        "ubicacion": "S01-E10-R02",
+        "observaciones": "",
+        "disponible": true
+    },
+    {
+        "id": 3,
+        "nombre": "Amoladora Angular",
+        "tipo": "Herrería",
+        "marca": "Makita",
+        "modelo": "GA4530",
+        "estado": "Usada",
+        "ubicacion": "S02-E12-R03",
+        "observaciones": "Cambiar disco",
+        "disponible": true
+    },
+    {
+        "id": 4,
+        "nombre": "Cortadora de Metal",
+        "tipo": "Herrería",
+        "marca": "Truper",
+        "modelo": "CMT-355",
+        "estado": "Nueva",
+        "ubicacion": "S02-E12-R04",
+        "observaciones": "",
+        "disponible": true
+    },
+    {
+        "id": 5,
+        "nombre": "Sierra Caladora",
+        "tipo": "Carpintería",
+        "marca": "Black+Decker",
+        "modelo": "JS20",
+        "estado": "Usada",
+        "ubicacion": "S03-E15-R05",
+        "observaciones": "Hoja desafilada",
+        "disponible": true
+    },
+    {
+        "id": 6,
+        "nombre": "Lijadora Orbital",
+        "tipo": "Carpintería",
+        "marca": "Stanley",
+        "modelo": "SS24",
+        "estado": "Nueva",
+        "ubicacion": "S03-E15-R06",
+        "observaciones": "",
+        "disponible": true
+    },
+    {
+        "id": 7,
+        "nombre": "Banco de Trabajo",
+        "tipo": "General",
+        "marca": "Morsa",
+        "modelo": "BT-120",
+        "estado": "Usada",
+        "ubicacion": "S04-E20-R07",
+        "observaciones": "Faltan tornillos",
+        "disponible": true
+    },
+    {
+        "id": 8,
+        "nombre": "Compresor de Aire",
+        "tipo": "Neumática",
+        "marca": "Gamma",
+        "modelo": "GA-50",
+        "estado": "Reparada",
+        "ubicacion": "S04-E20-R08",
+        "observaciones": "Filtro de aire cambiado",
+        "disponible": true
+    },
+    {
+        "id": 9,
+        "nombre": "Prensa Hidráulica",
+        "tipo": "Mecánica",
+        "marca": "Husky",
+        "modelo": "PH-10T",
+        "estado": "Usada",
+        "ubicacion": "S05-E22-R09",
+        "observaciones": "",
+        "disponible": true
+    },
+    {
+        "id": 10,
+        "nombre": "Torno de Banco",
+        "tipo": "Mecánica",
+        "marca": "Einhell",
+        "modelo": "TC-WW 1000",
+        "estado": "Nueva",
+        "ubicacion": "S05-E22-R10",
+        "observaciones": "",
+        "disponible": true
+    },
+    {
+        "id": 11,
+        "nombre": "martillo",
+        "tipo": "herramienta de mano",
+        "marca": "Bremen",
+        "modelo": "Mt-101",
+        "estado": "nuevo",
+        "ubicacion": "S01-E01-R01",
+        "observaciones": "color azul",
+        "disponible": true
+    },
+    {
+        "id": 12,
+        "nombre": "Destornillador",
+        "tipo": "herramienta de mano",
+        "marca": "sin marca",
+        "modelo": "philips",
+        "estado": "usado",
+        "ubicacion": "S01-E01-R02",
+        "observaciones": "",
+        "disponible": true
+    }
 ]

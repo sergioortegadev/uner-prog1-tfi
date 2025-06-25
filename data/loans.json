@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "tool_id": 11,
+        "user_dni": 44556677,
+        "date_loan": "2025-06-25T09:23:54.481373",
+        "date_return": "2025-06-25T09:25:08.830662",
+        "state": "Devuelto",
+        "observations": "ok"
+    }
+]

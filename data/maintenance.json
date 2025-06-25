@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "tool_id": 10,
+        "herramienta": "Torno de Banco",
+        "fecha": "2025-06-25T12:28:52.989090",
+        "tipo": "Preventivo",
+        "descripcion": "Limpieza y ajustes",
+        "responsable": "estudiantes 6to",
+        "costo": "0",
+        "siguiente": "N-A"
+    }
+]
