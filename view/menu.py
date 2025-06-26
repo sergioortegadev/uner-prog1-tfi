@@ -8,6 +8,7 @@ from controller import controller_maintenance as mantenimientos
 
 # ======== FUNCIONES DE VALIDACIÓN ========
 
+
 def validar_opcion(mensaje, opciones_validas):
     while True:
         opcion = input(mensaje).strip()
@@ -15,14 +16,16 @@ def validar_opcion(mensaje, opciones_validas):
             return opcion
         print("Opción inválida. Intente nuevamente.")
 
+
 def validar_dni(mensaje="Ingrese DNI: "):
     while True:
         dni = input(mensaje).strip()
         if dni == "0":
-         return None
+            return None
         if dni.isdigit() and 7 <= len(dni) <= 8:
             return int(dni)
         print("DNI inválido. Debe ser numérico y tener 7 u 8 dígitos.")
+
 
 def validar_id(mensaje="Ingrese ID: "):
     while True:
@@ -32,6 +35,7 @@ def validar_id(mensaje="Ingrese ID: "):
         if id_input.isdigit():
             return int(id_input)
         print("ID inválido. Debe ser numérico.")
+
 
 def validar_fecha(mensaje="Ingrese fecha (YYYY-MM-DD): "):
     import datetime
@@ -44,6 +48,8 @@ def validar_fecha(mensaje="Ingrese fecha (YYYY-MM-DD): "):
             print("Fecha inválida. Use el formato YYYY-MM-DD.")
 
 # ======== FUNCIONES DE IMPRESIÓN ========
+
+
 def imprimir_resultado(result):
     view.style.normal_cyan(f"\n{result['message']}\n")
 
@@ -58,6 +64,8 @@ def imprimir_resultado(result):
             print(f"{each.capitalize()}: {to_print[each]}")
 
 # ======== FUNCIONES DE INTERACCIÓN CON EL USUARIO ========
+
+
 def _obtener_datos_usuario():
     """Solicita y retorna un diccionario con los datos de un usuario."""
     nombre = input("Nombre: ")
@@ -81,13 +89,14 @@ def _obtener_datos_usuario():
     }
 
     if tipo == "estudiante":
-        datos_usuario["curso"] = input("Curso (si aplica): ")
-        datos_usuario["taller"] = input("Taller (si aplica): ")
+        datos_usuario["curso"] = input("Curso: ")
+        datos_usuario["taller"] = input("Taller: ")
     elif tipo == "personal":
-        datos_usuario["role"] = input("Rol (si aplica): ")
-        datos_usuario["dep"] = input("Departamento (si aplica): ")
-    
-    return datos_usuario            
+        datos_usuario["role"] = input("Rol: ")
+        datos_usuario["dep"] = input("Departamento: ")
+
+    return datos_usuario
+
 
 def _obtener_datos_herramienta():
     """Solicita y retorna un diccionario con los datos de una herramienta."""
@@ -109,6 +118,7 @@ def _obtener_datos_herramienta():
         "observaciones": observaciones
     }
 
+
 def _obtener_datos_mantenimiento():
     """Solicita y retorna un diccionario con los datos de un mantenimiento."""
     tipo = input("   Tipo de mantenimiento (Preventivo/Correctivo): ")
@@ -116,7 +126,7 @@ def _obtener_datos_mantenimiento():
     responsable = input("   Responsable: ")
     costo = input("   Costo: ")
     siguiente = input("Próximo (YYYY-MM-DD o N/A): ")
-    
+
     return {
         "fecha": datetime.now().isoformat(),
         "tipo": tipo,
@@ -128,6 +138,7 @@ def _obtener_datos_mantenimiento():
 
 # ======== MENÚ PRINCIPAL ========
 
+
 def menu():
     while True:
         view.style.header("\n   === Menú Principal ===")
@@ -138,7 +149,8 @@ def menu():
         print("   5 - Acerca de este desarrollo")
         print("   0 - Salir\n")
 
-        opcion = validar_opcion("   Seleccione una opción: ", ["1", "2", "3", "4", "5", "0"])
+        opcion = validar_opcion("   Seleccione una opción: ", [
+                                "1", "2", "3", "4", "5", "0"])
 
         if opcion == "1":
             menu_asignaciones()
@@ -149,7 +161,8 @@ def menu():
         elif opcion == "4":
             menu_mantenimiento()
         elif opcion == "5":
-            view.style.header("\n\n   Acerca de\n   Sistema desarrollado por:\n\n   Edgardo Sandoval, Horacio Belardita, Jorge Ruiz, Sergio Ortega y Tomas Beron\n.")
+            view.style.header(
+                "\n\n   Acerca de\n   Sistema desarrollado por:\n\n   Edgardo Sandoval, Horacio Belardita, Jorge Ruiz, Sergio Ortega y Tomas Beron\n.")
             continue
         elif opcion == "0":
             view.style.header("\n\n   Gracias por usar el sistema.")
@@ -157,7 +170,6 @@ def menu():
             sys.exit(0)
 
 # ======== SUBMENÚS ========
-
 
 
 def menu_asignaciones():
@@ -170,7 +182,8 @@ def menu_asignaciones():
         print("   5 - Ver historial por herramienta")
         print("   0 - Volver")
 
-        opcion = validar_opcion("\n   Seleccione una opción: ", ["1", "2", "3", "4", "5", "0"])
+        opcion = validar_opcion("\n   Seleccione una opción: ", [
+                                "1", "2", "3", "4", "5", "0"])
 
         match opcion:
             case "1":
@@ -181,7 +194,8 @@ def menu_asignaciones():
                 dni = validar_dni("DNI usuario: ")
                 imprimir_resultado(asignaciones.loan_create(id_tool, dni))
             case "2":
-                id_tool = validar_id("   Registrar devolución de herramienta con ID: ")
+                id_tool = validar_id(
+                    "   Registrar devolución de herramienta con ID: ")
                 obs = input("Observaciones: ")
                 imprimir_resultado(asignaciones.loan_return(id_tool, obs))
             case "3":
@@ -190,10 +204,12 @@ def menu_asignaciones():
                 dni = validar_dni()
                 imprimir_resultado(asignaciones.loan_get_user(dni))
             case "5":
-                id_tool = validar_id("   Ver asignaciones por ID de herramienta: ")
+                id_tool = validar_id(
+                    "   Ver asignaciones por ID de herramienta: ")
                 imprimir_resultado(asignaciones.loan_get_tool(id_tool))
             case "0":
                 return
+
 
 def menu_usuarios():
     while True:
@@ -207,7 +223,8 @@ def menu_usuarios():
         print("   7 - Eliminar usuario")
         print("   0 - Volver")
 
-        opcion = validar_opcion("\n   Seleccione una opción: ", [str(i) for i in range(8)])
+        opcion = validar_opcion("\n   Seleccione una opción: ", [
+                                str(i) for i in range(8)])
 
         match opcion:
             case "1":
@@ -219,7 +236,8 @@ def menu_usuarios():
             case "3":
                 imprimir_resultado(usuarios.users_list())
             case "4":
-                tipo = input("\n   Buscar por tipo \n   (1- Estudiante / 2- Personal): ")
+                tipo = input(
+                    "\n   Buscar por tipo \n   (1- Estudiante / 2- Personal): ")
                 imprimir_resultado(usuarios.users_list_by_type(tipo))
             case "5":
                 dni = validar_dni()
@@ -244,6 +262,7 @@ def menu_usuarios():
             case "0":
                 return
 
+
 def menu_herramientas():
     while True:
         view.style.subheader("\n   --- Menú Herramientas ---")
@@ -256,7 +275,8 @@ def menu_herramientas():
         # print("   7 - Listar por tipo") # No implementado en el JSON
         print("   0 - Volver")
 
-        opcion = validar_opcion("\n   Seleccione una opción: ", [str(i) for i in range(8)])
+        opcion = validar_opcion("\n   Seleccione una opción: ", [
+                                str(i) for i in range(8)])
 
         match opcion:
             case "1":
@@ -269,14 +289,16 @@ def menu_herramientas():
                 imprimir_resultado(herramientas.tool_get_by_name(name))
             case "4":
                 datos_herramienta = _obtener_datos_herramienta()
-                imprimir_resultado(herramientas.tool_create(**datos_herramienta))
+                imprimir_resultado(
+                    herramientas.tool_create(**datos_herramienta))
             case "5":
                 id_tool = validar_id("   Editar herramienta, ingrese ID: ")
                 if id_tool is None:
                     print("Operación cancelada.")
                     return
                 datos_herramienta = _obtener_datos_herramienta()
-                imprimir_resultado(herramientas.tool_update(id_tool, **datos_herramienta))
+                imprimir_resultado(herramientas.tool_update(
+                    id_tool, **datos_herramienta))
             case "6":
                 id_tool = validar_id("   ID herramienta para eliminar: ")
                 if id_tool is None:
@@ -289,6 +311,7 @@ def menu_herramientas():
             case "0":
                 return
 
+
 def menu_mantenimiento():
     while True:
         view.style.subheader("\n   --- Menú Mantenimiento ---")
@@ -296,16 +319,19 @@ def menu_mantenimiento():
         print("   2 - Ver historial completo")
         print("   0 - Volver")
 
-        opcion = validar_opcion("\n   Seleccione una opción: ", ["1", "2", "0"])
+        opcion = validar_opcion(
+            "\n   Seleccione una opción: ", ["1", "2", "0"])
 
         match opcion:
             case "1":
-                id_tool = validar_id("   Registrar mantenimiento de herramienta con ID: ")
+                id_tool = validar_id(
+                    "   Registrar mantenimiento de herramienta con ID: ")
                 if id_tool is None:
                     print("Operación cancelada.")
                     return
                 data_mantenimiento = _obtener_datos_mantenimiento()
-                imprimir_resultado(mantenimientos.maintenance_create(id_tool, **data_mantenimiento))
+                imprimir_resultado(mantenimientos.maintenance_create(
+                    id_tool, **data_mantenimiento))
             case "2":
                 imprimir_resultado(mantenimientos.maintenance_list_all())
             case "0":
