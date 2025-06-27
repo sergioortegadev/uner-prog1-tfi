@@ -81,15 +81,20 @@ Diagrama de Arquitectura: Muestra la relación entre módulos y flujo de datos.
 
 2. Abrir la terminal en la carpeta raíz del proyecto.
 
-3. Ejecutar el archivo principal:
+3. Instalar las dependencias necesarias
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Ejecutar el archivo principal:
 
    ```bash
    python main.py
    ```
 
-4. El archivo `main.py` importa y ejecuta el menú principal definido en `view/menu.py`.
+5. El archivo `main.py` importa y ejecuta el menú principal definido en `view/menu.py`.
 
-5. Seguir las instrucciones en pantalla.
+6. Seguir las instrucciones en pantalla.
 
 ## ✅ **Funciones principales**
 
