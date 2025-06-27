@@ -46,5 +46,29 @@
         "taller": "",
         "rol": "docente",
         "dep": ""
+    },
+    {
+        "id": 5,
+        "nombre": "Adelaida",
+        "apellido": "Martin",
+        "dni": 66554433,
+        "tipo_usuario": "Personal",
+        "email": "ad@mar.com",
+        "curso": "",
+        "taller": "",
+        "rol": "administrativo",
+        "dep": "direccion"
+    },
+    {
+        "id": 6,
+        "nombre": "Matt",
+        "apellido": "Groening",
+        "dni": 33445566,
+        "tipo_usuario": "Personal",
+        "email": "simpsons@hola.com",
+        "curso": "",
+        "taller": "",
+        "rol": "docente",
+        "dep": "tecnico"
     }
 ]

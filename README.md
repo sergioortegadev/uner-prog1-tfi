@@ -6,6 +6,8 @@
 
 # 📌 Sistema de Gestión de Talleres Escolares (TFI - Programación I)
 
+![imagen ilustrativa computadora retro, generada por AI](./ilustrativa.png)
+
 Este repositorio contiene el Trabajo Final Integrador para la materia **Programación I** de la carrera de Desarrollo Web en la UNER.
 
 ## Organización del equipo
@@ -81,7 +83,22 @@ Diagrama de Arquitectura: Muestra la relación entre módulos y flujo de datos.
 
 2. Abrir la terminal en la carpeta raíz del proyecto.
 
-3. Instalar las dependencias necesarias
+3. Dentro de un entorno virtual (recomendado). Es necesario tener instalado _python3-venv_
+
+   ```bash
+   sudo apt install python3-venv
+   ```
+
+   Una vez instalado, crear el entorno virtual:
+
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+   Instalar las dependencias necesarias
+
    ```bash
    pip install -r requirements.txt
    ```
@@ -103,9 +120,19 @@ Diagrama de Arquitectura: Muestra la relación entre módulos y flujo de datos.
 - **Asignaciones**: registrar préstamo y devolución, historial por usuario o herramienta.
 - **Mantenimientos**: registrar y consultar historial.
 
+## Screenshot
+
+![Vista de la búsqueda de usuarios](./screenshot.png)
+
 ## 👥 **Autores**
 
 Trabajo realizado por el **Grupo Nº1** de la cátedra de Programación I - Desarrollo Web - UNER.
+
+- Belardita, Horacio
+- Beron, Tomas
+- Ortega, Sergio
+- Ruiz, Jorge
+- Sandoval, Edgardo
 
 ## 📄 **Licencia**
 
