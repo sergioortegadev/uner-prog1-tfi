@@ -2,7 +2,6 @@ from typing import Dict, List, Any, Optional
 from model.model_data import load_json_file, save_json_file
 from model.new_id import new_id
 from enum import Enum
-from model.model_data import load_json_file, save_json_file
 
 FILE = "tools.json"
 

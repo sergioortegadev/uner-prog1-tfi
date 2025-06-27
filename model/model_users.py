@@ -16,19 +16,17 @@ def save_users(users: List[Dict[str, Any]]):
 
 
 def validate_dni(dni: str, users: List[Dict[str, Any]], exclude_id: Optional[int] = None) -> None:
-    # Verificar formato DNI (8 dígitos)
     if not re.match(r'^\d{8}$', dni):
         raise ValueError(
             f"DNI '{dni}'. El DNI debe tener exactamente 8 dígitos")
 
-    # Verificar unicidad
     for user in users:
         if user["dni"] == dni and (exclude_id is None or user["id"] != exclude_id):
             raise ValueError(f"DNI '{dni}' Ya existe un usuario con este DNI")
 
 
 def create_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
-   
+
     users = load_users()
 
     for field in REQUIRED_USER_FIELDS:
@@ -61,12 +59,12 @@ def find_user_by_dni(dni: int) -> Optional[Dict[str, Any]]:
     return None
 
 
-def find_user_by_first_name(first_name: str) -> Optional[Dict[str, Any]]:
+def find_user_by_first_name(first_name: str) -> List[Dict[str, Any]]:
     users = load_users()
-    for user in users:
-        if user["nombre"] == first_name:
-            return user
-    return None
+    return [
+        user for user in users
+        if 'nombre' in user and first_name.lower() in user['nombre'].lower()
+    ]
 
 
 def find_users_by_user_type(user_type: str) -> List[Dict[str, Any]]:
@@ -84,7 +82,6 @@ def find_user_by_id(user_id: int) -> Optional[Dict[str, Any]]:
 
 
 def find_user_index_by_id(user_id: int, users: List[Dict[str, Any]]) -> int:
-
     for i, user in enumerate(users):
         if user["id"] == user_id:
             return i
@@ -94,10 +91,7 @@ def find_user_index_by_id(user_id: int, users: List[Dict[str, Any]]) -> int:
 def update_user(user_id: int, user_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     users = load_users()
 
-    # Encontrar índice del usuario
     user_index = find_user_index_by_id(user_id, users)
-
-    # Actualizar usuario
     updated_user = users[user_index].copy()
     for key, value in user_data.items():
         if key != "id":
@@ -111,7 +105,6 @@ def update_user(user_id: int, user_data: Dict[str, Any]) -> Optional[Dict[str, A
 
 def delete_user(user_id: int) -> bool:
     users = load_users()
-    # Encontrar índice del usuario
     user_index = find_user_index_by_id(user_id, users)
 
     if user_index == -1:

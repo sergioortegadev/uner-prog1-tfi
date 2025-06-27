@@ -6,7 +6,6 @@ from model.model_tools import load_tools, save_tools, create_tool
 
 tools = load_tools()
 
-# Accessory functions for tools
 def update_tool(tool_id: int, updates: dict) -> dict:
 
  for t in tools:

@@ -1,10 +1,9 @@
+from model.model_users import create_user, find_user_by_dni, update_user, delete_user,  find_user_by_first_name, find_users_by_user_type, load_users
 from typing import Dict, List, Any, Optional
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from model.model_users import create_user, find_user_by_dni, update_user, delete_user, load_users, find_user_by_first_name, find_users_by_user_type
 
-users = load_users()
 
 def user_create(dni=None, datos_usuario: Optional[Dict[str, Any]] = None, first_name: Optional[str] = None, last_name: Optional[str] = None, email: Optional[str] = None, user_type: Optional[str] = None, curso: Optional[str] = None, taller: Optional[str] = None, role: Optional[str] = None, dep: Optional[str] = None):
     if not dni or not first_name or not last_name or not email or not user_type:
@@ -14,8 +13,7 @@ def user_create(dni=None, datos_usuario: Optional[Dict[str, Any]] = None, first_
         }
     try:
         dni = int(dni)
-        # Verificar si el DNI ya existe en users
-        if any(user.get("dni") == dni for user in users):
+        if find_user_by_dni(dni):
             return {
                 'message': 'Error: Ya existe un usuario registrado con ese DNI.',
                 'to_print': {}
@@ -96,15 +94,14 @@ def user_delete(dni: Optional[int] = None):
             'message': 'Error: El usuario con el DNI proporcionado no existe.',
             'to_print': {}
         }
-    # Confirmación de eliminación
-    confirmation = input(f"¿Estás seguro de que deseas eliminar al usuario ? (s/n): ").strip().lower()
+    confirmation = input(
+        f"¿Estás seguro de que deseas eliminar al usuario ? (s/n): ").strip().lower()
     if confirmation != 's':
         return {
             'message': 'Operación cancelada. El usuario no ha sido eliminado.',
             'to_print': {}
         }
-    
-    # Eliminacion de usuario
+
     has_deleted = delete_user(user['id'])
     if has_deleted:
         return {
@@ -137,11 +134,8 @@ def user_get_by_name(partial_name: Optional[str] = None):
             'message': 'Error: Nombre de usuario no proporcionado. Esta función requiere el parámetro "name".',
             'to_print': {}
         }
-    
-    matches = [
-        user for user in users
-        if 'nombre' in user and partial_name.lower() in user['nombre'].lower()
-    ]
+
+    matches = find_user_by_first_name(partial_name.strip())
 
     if not matches:
         return {
@@ -156,7 +150,7 @@ def user_get_by_name(partial_name: Optional[str] = None):
 
 
 def users_list():
-    
+    users = load_users()
     return {
         'message': 'Listado de Usuarios' if users else 'No hay usuarios registrados.',
         'to_print': users if users else []
@@ -176,7 +170,6 @@ def users_list_by_type(user_type: Optional[str] = None):
             'to_print': {}
         }
     return {
-        'message': f'Listado de Usuarios por Tipo: {'Estudiante' if normalized_user_type=='1'else'Personal'}',
+        'message': f'Listado de Usuarios por Tipo: {'Estudiante' if normalized_user_type == '1'else 'Personal'}',
         'to_print': find_users_by_user_type(normalized_user_type)
     }
-

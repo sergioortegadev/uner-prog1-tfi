@@ -1,18 +1,4 @@
-
-
 def new_id(lista_registros):
-    """
-    Genera un ID único reutilizable a partir de una lista de registros existentes.
-
-    Reutiliza IDs que hayan quedado libres por eliminación. Si no hay huecos,
-    asigna el siguiente ID al mayor existente.
-
-    Args:
-        lista_registros (list): Lista de diccionarios, cada uno con al menos la clave 'id' numérica.
-
-    Returns:
-        int: El menor ID libre posible.
-    """
     if not isinstance(lista_registros, list):
         raise TypeError("Se esperaba una lista de diccionarios")
 
