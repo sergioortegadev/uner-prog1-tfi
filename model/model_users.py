@@ -51,7 +51,7 @@ def validate_dni(dni: str, users: List[Dict[str, Any]], exclude_id: Optional[int
 
 
 def create_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
-   
+
     users = load_users()
 
     for field in REQUIRED_USER_FIELDS:
@@ -95,7 +95,7 @@ def find_user_by_dni(dni: int) -> Optional[Dict[str, Any]]:
     return None
 
 
-def find_user_by_first_name(first_name: str) -> Optional[Dict[str, Any]]:
+def find_user_by_first_name(first_name: str) -> List[Dict[str, Any]]:
     """Buscar un usuario por nombre
 
     Args:
@@ -105,10 +105,10 @@ def find_user_by_first_name(first_name: str) -> Optional[Dict[str, Any]]:
         Diccionario del usuario si se encuentra, None en caso contrario
     """
     users = load_users()
-    for user in users:
-        if user["nombre"] == first_name:
-            return user
-    return None
+    return [
+        user for user in users
+        if 'nombre' in user and first_name.lower() in user['nombre'].lower()
+    ]
 
 
 def find_users_by_user_type(user_type: str) -> List[Dict[str, Any]]:
