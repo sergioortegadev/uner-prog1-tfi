@@ -95,8 +95,8 @@ def _obtener_datos_usuario():
     }
 
     if tipo == "estudiante":
-        datos_usuario["curso"] = input("Curso (si aplica): ")
-        datos_usuario["taller"] = input("Taller (si aplica): ")
+        datos_usuario["curso"] = input("Curso: ")
+        datos_usuario["taller"] = input("Taller: ")
     elif tipo == "personal":
         datos_usuario["role"] = input("Rol (si aplica): ")
         datos_usuario["dep"] = input("Departamento (si aplica): ")
