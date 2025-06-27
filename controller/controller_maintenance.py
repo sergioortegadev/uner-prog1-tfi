@@ -35,19 +35,11 @@ def maintenance_create(tool_id: Optional[int], maintenance_data: Optional[Dict[s
 
  created_maintenance = create_maintenance(new_data)
 
- # Habilitar cuando se implemente función 'Mantenimiento Completado'
- # update_tool(tool_id, {"disponible": False})
-
  return {
   'message': 'Registro de mantenimiento realizado con éxito' if created_maintenance else 'No se pudo registrar el mantenimiento.',
     'to_print': created_maintenance if created_maintenance else []
  }
  
-
- 
-
-
-
 
 def maintenance_list_all(*args, **kwargs):
 
@@ -57,13 +49,3 @@ def maintenance_list_all(*args, **kwargs):
     'message': 'Listado completo de mantenimientos' if maintenance else 'No hay mantenimientos registrados.',
     'to_print': maintenance if maintenance else []
  }
-
-
-# Ejemplo de uso
-# print(maintenance_create(2, '2025-5-16', 'Correctivo', 'Reparacion de carcaza', 'Estudiantes 5to año', '$350', 'N/A'))
-# print(maintenance_create())
-# print(maintenance_create('2', '2025-5-16', 'Correctivo', 'Reparacion de carcaza', 'Estudiantes 5to año', '$350', 'N/A'))
-# print(maintenance_create(2))
-# print(maintenance_list_all())
-# print(maintenance_list_all('martillo'))
-# print(maintenance_create(1))

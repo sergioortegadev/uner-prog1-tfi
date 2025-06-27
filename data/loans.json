@@ -7,5 +7,14 @@
         "date_return": "2025-06-25T09:25:08.830662",
         "state": "Devuelto",
         "observations": "ok"
+    },
+    {
+        "id": 2,
+        "tool_id": 1,
+        "user_dni": 99887766,
+        "date_loan": "2025-06-27T19:50:57.954008",
+        "date_return": "2025-06-27T19:54:19.359237",
+        "state": "Devuelto",
+        "observations": ""
     }
 ]

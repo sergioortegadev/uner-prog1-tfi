@@ -94,7 +94,6 @@ def user_delete(dni: Optional[int] = None):
             'message': 'Error: El usuario con el DNI proporcionado no existe.',
             'to_print': {}
         }
-    # Confirmación de eliminación
     confirmation = input(
         f"¿Estás seguro de que deseas eliminar al usuario ? (s/n): ").strip().lower()
     if confirmation != 's':
@@ -103,7 +102,6 @@ def user_delete(dni: Optional[int] = None):
             'to_print': {}
         }
 
-    # Eliminacion de usuario
     has_deleted = delete_user(user['id'])
     if has_deleted:
         return {
@@ -175,18 +173,3 @@ def users_list_by_type(user_type: Optional[str] = None):
         'message': f'Listado de Usuarios por Tipo: {'Estudiante' if normalized_user_type == '1'else 'Personal'}',
         'to_print': find_users_by_user_type(normalized_user_type)
     }
-
-
-# Ejemplo de uso
-# print(user_create(12345678, 'Juan', 'Perez', 'usuario1@ejemplo.com', 'Estudiante'))
-# print(user_update(12345678))
-# print(user_delete(12345678))
-# print(user_get_by_dni(22232425))
-# print(user_get_by_name('Juan'))
-# print(users_list())
-# print(users_list('pepe'))
-# print(users_list_by_type('Estudiante'))
-# print(users_list_by_type('Personal'))
-# print(users_list_by_type('Administrador'))  # Esto debería devolver un error
-# print(users_list_by_type())  # Esto debería devolver un error
-# print(users_list_by_type())  # Esto debería devolver un error

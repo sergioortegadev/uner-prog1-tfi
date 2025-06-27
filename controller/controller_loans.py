@@ -9,7 +9,6 @@ from controller.controller_users import user_get_by_dni
 
 # Accesory funcions for loans
 def find_loan_index_by_tool_id(tool_id: int, loans: List[Dict[str, Any]]) -> int:
-    """Buscar índice de préstamo por ID de herramienta"""
     for i, loan in enumerate(loans):
         if loan["tool_id"] == tool_id and loan["state"] == "Pendiente":
             return i
@@ -61,10 +60,8 @@ def loan_create(tool_id: int = None, user_dni: int = None) -> Dict[str, Any]:
    'to_print': {}
   }
 
- # Actualizar el estado de la herramienta
  update_tool(tool_id, {"disponible": False})
 
- # Crear nuevo préstamo
  new_loan_data = {
   'tool_id': tool_id,
   'user_dni': user_dni
@@ -106,14 +103,11 @@ def loan_return(tool_id: int = None, observation: str = None) -> Dict[str, Any]:
  loans[loan_index]["date_return"] = datetime.now().isoformat()
  loans[loan_index]["state"] = "Devuelto"
 
- # Si se proporciona una observación, agregarla al préstamo
  if observation:
   loans[loan_index]["observations"] = observation
 
- # Actualizar el estado de la herramienta a "Disponible"
  update_tool(tool_id, {"disponible": True})
 
- # Guardar los cambios en el archivo de préstamos
  save_loans(loans)
 
 
@@ -178,24 +172,3 @@ def loan_get_user(user_dni: int = None) -> List[Dict[str, Any]]:
         'message': 'Historial del usuario' if len(loans_user_by_dni) > 0 else f'No hay historial de préstamos para usuario con DNI {user_dni}.',
         'to_print': loans_user_by_dni if len(loans_user_by_dni) > 0 else []
     }
-
-
-# Ejemplos de uso
-# print(loan_create(26, 12345678))
-# print(loan_create())
-# print(loan_create('',''))
-# print(loan_return(26))
-# print(loan_return(30, 'Muy desgastada'))
-# print(loan_return(1, 'Roto al devolverlo'))
-# print(loan_return())
-# print(loan_list())
-# print(loan_get_tool(1))
-# print(loan_get_tool(14))
-# print(loan_get_tool())
-# print(loan_get_tool(''))
-# print(loan_get_tool('abc'))
-# print(loan_get_tools_pending_return())
-# print(loan_get_user(11223344))
-# print(loan_get_user())
-# print(loan_get_user(''))
-# print(loan_get_user('abc' ))

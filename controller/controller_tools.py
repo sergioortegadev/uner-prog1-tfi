@@ -6,11 +6,7 @@ from model.model_tools import load_tools, save_tools, create_tool
 
 tools = load_tools()
 
-# Accessory functions for tools
 def update_tool(tool_id: int, updates: dict) -> dict:
-
- # tool = tool_get_by_id(tool_id)
- # tool['disponible'] = updates.get('disponible', tool['disponible'])
 
  for t in tools:
   if t['id'] == tool_id:
@@ -74,7 +70,6 @@ def tool_get_by_name(partial_name=None):
 
 
 def tools_list_all(*args, **kwargs) -> List[Dict[str, Any]]:
- # Estos parámetros, permite que acepte argumentos opcionales y los ignore. Sin ellos se rompe la ejecución si se le pasa un argumento que no espera.
 
  tools = load_tools()
 
@@ -83,58 +78,6 @@ def tools_list_all(*args, **kwargs) -> List[Dict[str, Any]]:
   'to_print': tools if len(tools) > 0 else []
  }
 
-# No implementado el tipo de herramienta en el JSON
-# def tools_list_by_type(tool_type=None):
-#  if not tool_type:
-#   return {
-#    'message': 'Error: Tipo de herramienta no proporcionado. \n Esta función requiere el parámetro tool_type.',
-#    'to_print': {}
-#   }
-#  if not isinstance(tool_type, str):
-#   return {
-#    'message': 'Error: El tipo de herramienta debe ser una cadena de texto.',
-#    'to_print': {}
-#   }
-#  # Simulación de listado de herramientas por tipo
-#  # Aquí se podría agregar la lógica para obtener las herramientas de una base de datos o sistema
-#  return {
-#   'message': 'Listado de Herramientas por Tipo',
-#   'to_print': [
-#    {
-#     "tool_id": 1,
-#     "tool_name": "martillo",
-#     "tool_type": tool_type,
-#     "tool_brand": "Truper",
-#     "tool_model": "MX123",
-#     "tool_state": "nuevo",
-#     "tool_location": "S01-E01-R01",
-#     "tool_observations": "",
-#     "tool_available": True
-#    },
-#    {
-#     "tool_id": 5,
-#     "tool_name": "martillo grande",
-#     "tool_type": tool_type,
-#     "tool_brand": "Stanley",
-#     "tool_model": "DX123",
-#     "tool_state": "usado",
-#     "tool_location": "S01-E01-R02",
-#     "tool_observations": "muy desgastado",
-#     "tool_available": False
-#    },
-#    {
-#     "tool_id": 13,
-#     "tool_name": "martillo para chapa",
-#     "tool_type": tool_type,
-#     "tool_brand": "Stanley",
-#     "tool_model": "DX124",
-#     "tool_state": "usado",
-#     "tool_location": "S01-E01-R03",
-#     "tool_observations": "",
-#     "tool_available": True
-#    }
-#   ]
-#  }
 
 def tool_create(nombre: str = None, tipo: str = None, marca: str = None, modelo: str = None, estado: str = None, ubicacion: str = None, observaciones: str = ''):
  if not nombre or not tipo or not marca or not modelo or not estado or not ubicacion:
@@ -253,28 +196,3 @@ def tool_delete(id=None):
   'message': 'Herramienta eliminada correctamente',
   'to_print': tool_to_delete
  }
-
-
-
-
-# Ejemplo de uso
-# print(tool_get_by_id(1))
-# print(tool_get_by_name('martillo'))
-# print(tool_get_by_name(''))
-# print(tool_get_by_name())
-# print(tool_create("Martillo", "Truper", "nuevo", False))
-# print(tool_create("Martillo", "Truper", 1, False))
-# print(tool_create("Martillo", "Truper", "usado", ''))
-# print(tool_create())
-# print(tool_create("Martillo", "Truper", "nuevo"))
-# print(tools_list_all())
-# print(tools_list_all('martillo'))
-# print(tools_list_by_type('martillo'))
-# print(tools_list_by_type(''))
-# print(tools_list_by_type())
-# print(tool_update(2))
-# print(tool_update('2'))
-# print(tool_update())
-# print(tool_delete(2))
-# print(tool_delete('2'))
-# print(tool_delete())

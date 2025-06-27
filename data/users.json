@@ -70,5 +70,17 @@
         "taller": "",
         "rol": "docente",
         "dep": "tecnico"
+    },
+    {
+        "id": 7,
+        "nombre": "Homero",
+        "apellido": "Simpson",
+        "dni": 77744411,
+        "tipo_usuario": "Personal",
+        "email": "sdfasd",
+        "curso": "",
+        "taller": "",
+        "rol": "nada",
+        "dep": "otro"
     }
 ]
