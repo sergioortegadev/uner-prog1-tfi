@@ -1,5 +1,6 @@
 import sys
 import view.style
+from tabulate import tabulate
 from datetime import datetime
 from controller import controller_users as usuarios
 from controller import controller_tools as herramientas
@@ -51,17 +52,22 @@ def validar_fecha(mensaje="Ingrese fecha (YYYY-MM-DD): "):
 
 
 def imprimir_resultado(result):
+    """Imprime el resultado de una operación, incluyendo mensaje y datos.
+
+    :param result: Diccionario con clave "message" y opcionalmente "to_print".
+    """
     view.style.normal_cyan(f"\n{result['message']}\n")
 
     to_print = result.get("to_print", {})
-    for each in to_print:
-        if isinstance(each, dict):
-            # print(f"{each.get('id', 'Desconocido')}:")
-            for key, value in each.items():
-                print(f"  - {key}: {value}")
-            print("\n")
-        else:
-            print(f"{each.capitalize()}: {to_print[each]}")
+    if isinstance(to_print, list) and to_print and isinstance(to_print[0], dict):
+        headers = to_print[0].keys()
+        rows = [item.values() for item in to_print]
+        print(tabulate(rows, headers=headers, tablefmt="grid"))
+    elif isinstance(to_print, dict) and to_print:
+        print(tabulate([to_print.values()],
+              headers=to_print.keys(), tablefmt="grid"))
+    elif to_print:
+        print(tabulate([[item] for item in to_print], tablefmt="grid"))
 
 # ======== FUNCIONES DE INTERACCIÓN CON EL USUARIO ========
 
@@ -92,8 +98,8 @@ def _obtener_datos_usuario():
         datos_usuario["curso"] = input("Curso: ")
         datos_usuario["taller"] = input("Taller: ")
     elif tipo == "personal":
-        datos_usuario["role"] = input("Rol: ")
-        datos_usuario["dep"] = input("Departamento: ")
+        datos_usuario["role"] = input("Rol (si aplica): ")
+        datos_usuario["dep"] = input("Departamento (si aplica): ")
 
     return datos_usuario
 
